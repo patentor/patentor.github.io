@@ -18,25 +18,25 @@
     --popover: 0 0% 100%;
     --popover-foreground: 213 27% 8%;
 
-    /* Primary Brand - Professional Deep Blue */
-    --primary: 213 94% 68%;
+    /* Primary - Clean Navy */
+    --primary: 210 40% 25%;
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 213 94% 75%;
+    --primary-glow: 210 40% 30%;
 
-    /* Secondary - Elegant Navy */
-    --secondary: 213 27% 15%;
-    --secondary-foreground: 0 0% 100%;
+    /* Secondary - Light Gray */
+    --secondary: 210 10% 95%;
+    --secondary-foreground: 210 40% 25%;
 
     /* Muted Tones */
-    --muted: 220 14% 96%;
-    --muted-foreground: 213 27% 45%;
+    --muted: 210 10% 97%;
+    --muted-foreground: 210 15% 50%;
 
-    /* Accent - Professional Gold */
-    --accent: 43 96% 56%;
-    --accent-foreground: 213 27% 8%;
+    /* Accent - Subtle Blue */
+    --accent: 210 50% 45%;
+    --accent-foreground: 0 0% 100%;
 
-    /* Success - Patent Green */
-    --success: 142 76% 36%;
+    /* Success - Professional Green */
+    --success: 140 40% 45%;
     --success-foreground: 0 0% 100%;
 
     /* Destructive */
@@ -54,14 +54,14 @@
     --patent-pending: 43 20% 95%;
 
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(213 94% 68%), hsl(213 94% 75%));
-    --gradient-secondary: linear-gradient(135deg, hsl(213 27% 15%), hsl(213 27% 25%));
-    --gradient-hero: linear-gradient(135deg, hsl(213 94% 68%), hsl(43 96% 56%));
+    --gradient-primary: linear-gradient(135deg, hsl(210 40% 25%), hsl(210 40% 30%));
+    --gradient-secondary: linear-gradient(135deg, hsl(210 10% 95%), hsl(210 10% 90%));
+    --gradient-hero: linear-gradient(135deg, hsl(210 40% 25%), hsl(210 50% 45%));
     
     /* Shadows */
-    --shadow-elegant: 0 10px 40px -10px hsl(213 94% 68% / 0.2);
-    --shadow-card: 0 4px 20px -2px hsl(213 27% 8% / 0.08);
-    --shadow-glow: 0 0 30px hsl(213 94% 75% / 0.3);
+    --shadow-elegant: 0 10px 40px -10px hsl(210 40% 25% / 0.15);
+    --shadow-card: 0 4px 20px -2px hsl(210 15% 50% / 0.08);
+    --shadow-glow: 0 0 20px hsl(210 40% 30% / 0.2);
 
     --radius: 0.75rem;
 

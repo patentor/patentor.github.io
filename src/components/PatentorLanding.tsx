@@ -71,11 +71,11 @@ export function PatentorLanding() {
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-primary rounded-xl flex items-center justify-center shadow-glow">
+              <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
                 <span className="text-white font-bold text-lg">P</span>
               </div>
               <span className="font-bold text-2xl text-foreground">Patentor.ai</span>
-              <Badge className="bg-gradient-primary border-0">Beta</Badge>
+              <Badge className="bg-primary text-white border-0">Beta</Badge>
             </div>
             
             <nav className="hidden md:flex items-center gap-6">
@@ -86,8 +86,8 @@ export function PatentorLanding() {
             </nav>
 
             <div className="flex items-center gap-3">
-              <Button variant="outline">Sign In</Button>
-              <Button className="bg-gradient-primary hover:shadow-glow">Get Started</Button>
+              <Button variant="outline" onClick={() => alert('Sign in functionality coming soon')}>Sign In</Button>
+              <Button className="bg-primary hover:bg-primary/90" onClick={() => window.location.href = '/patent-drafting'}>Get Started</Button>
             </div>
           </div>
         </div>
@@ -102,25 +102,21 @@ export function PatentorLanding() {
         <div className="relative container mx-auto px-6 py-20">
           <div className="max-w-4xl mx-auto text-center space-y-8">
             <div className="space-y-4 animate-fade-in">
-              <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
-                <span className="bg-gradient-hero bg-clip-text text-transparent">
-                  AI-Powered Patent
-                </span>
-                <br />
-                <span className="text-foreground">Innovation Platform</span>
+              <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-foreground">
+                AI Tool for Patent & Academic Writing
               </h1>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                Transform your ideas into protected intellectual property with AI assistance, 
-                expert attorney network, and comprehensive commercialization services.
+                Streamline your patent drafting process with AI-powered research, writing assistance, 
+                and professional services all in one platform.
               </p>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up">
-              <Button size="lg" className="bg-gradient-primary hover:shadow-glow text-lg px-8 py-6">
+              <Button size="lg" className="bg-primary hover:bg-primary/90 text-lg px-8 py-6" onClick={() => window.location.href = '/patent-drafting'}>
                 Start Patent Draft
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button variant="outline" size="lg" className="text-lg px-8 py-6">
+              <Button variant="outline" size="lg" className="text-lg px-8 py-6" onClick={() => window.location.href = '/patent-drafting'}>
                 <FileText className="mr-2 h-5 w-5" />
                 View Demo
               </Button>
@@ -143,48 +139,50 @@ export function PatentorLanding() {
       <section id="features" className="py-20 bg-muted/30">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Complete Patent Ecosystem</h2>
+            <h2 className="text-4xl font-bold mb-4">What This Tool Does</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              From initial idea to market success - everything you need in one platform
+              Everything you need for patent and academic writing
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <Card key={index} className="shadow-card hover:shadow-elegant transition-shadow duration-300 group">
-                <CardHeader>
-                  <div className={`w-12 h-12 rounded-lg bg-gradient-to-br from-background to-muted flex items-center justify-center mb-4 group-hover:shadow-glow transition-shadow duration-300`}>
-                    <feature.icon className={`h-6 w-6 ${feature.color}`} />
+          <div className="max-w-4xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-6">
+              {features.map((feature, index) => (
+                <div key={index} className="flex items-start gap-4 p-4 bg-card rounded-lg border">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-success flex items-center justify-center">
+                    <CheckCircle className="h-5 w-5 text-white" />
                   </div>
-                  <CardTitle className="text-xl">{feature.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
-                </CardContent>
-              </Card>
-            ))}
+                  <div className="flex items-center gap-3">
+                    <feature.icon className="h-5 w-5 text-primary" />
+                    <div>
+                      <h3 className="font-semibold text-foreground">{feature.title}</h3>
+                      <p className="text-sm text-muted-foreground">{feature.description}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-secondary text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20" />
-        <div className="relative container mx-auto px-6 text-center">
+      <section className="py-20 bg-muted">
+        <div className="container mx-auto px-6 text-center">
           <div className="max-w-3xl mx-auto space-y-8">
-            <h2 className="text-4xl md:text-5xl font-bold">
-              Ready to Protect Your Innovation?
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground">
+              Ready to Start Writing?
             </h2>
-            <p className="text-xl opacity-90">
-              Join thousands of inventors who trust Patentor.ai for their intellectual property needs
+            <p className="text-xl text-muted-foreground">
+              Get started with professional patent and academic writing tools
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90 text-lg px-8 py-6">
-                Start Free Trial
-                <Zap className="ml-2 h-5 w-5" />
+              <Button size="lg" className="bg-primary hover:bg-primary/90 text-lg px-8 py-6" onClick={() => window.location.href = '/patent-drafting'}>
+                Start Writing
+                <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button variant="outline" size="lg" className="border-white text-white hover:bg-white/10 text-lg px-8 py-6">
-                Schedule Demo
+              <Button variant="outline" size="lg" className="text-lg px-8 py-6" onClick={() => window.location.href = '/patent-drafting'}>
+                View Templates
               </Button>
             </div>
           </div>
@@ -197,7 +195,7 @@ export function PatentorLanding() {
           <div className="grid md:grid-cols-4 gap-8">
             <div className="space-y-4">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
+                <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
                   <span className="text-white font-bold text-sm">P</span>
                 </div>
                 <span className="font-bold text-xl">Patentor.ai</span>
