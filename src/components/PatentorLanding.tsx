@@ -87,7 +87,7 @@ export function PatentorLanding() {
 
             <div className="flex items-center gap-3">
               <Button variant="outline" onClick={() => alert('Sign in functionality coming soon')}>Sign In</Button>
-              <Button className="bg-primary hover:bg-primary/90" onClick={() => window.location.href = '/patent-drafting'}>Get Started</Button>
+              <Button className="bg-primary hover:bg-primary/90" onClick={() => window.location.href = '/drafting'}>Get Started</Button>
             </div>
           </div>
         </div>
@@ -112,11 +112,11 @@ export function PatentorLanding() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up">
-              <Button size="lg" className="bg-primary hover:bg-primary/90 text-lg px-8 py-6" onClick={() => window.location.href = '/patent-drafting'}>
+              <Button size="lg" className="bg-primary hover:bg-primary/90 text-lg px-8 py-6" onClick={() => window.location.href = '/drafting'}>
                 Start Patent Draft
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button variant="outline" size="lg" className="text-lg px-8 py-6" onClick={() => window.location.href = '/patent-drafting'}>
+              <Button variant="outline" size="lg" className="text-lg px-8 py-6" onClick={() => window.location.href = '/drafting'}>
                 <FileText className="mr-2 h-5 w-5" />
                 View Demo
               </Button>
@@ -153,7 +153,7 @@ export function PatentorLanding() {
                     <CheckCircle className="h-5 w-5 text-white" />
                   </div>
                   <div className="flex items-center gap-3">
-                    <feature.icon className="h-5 w-5 text-primary" />
+                    <feature.icon className={`h-5 w-5 ${feature.color}`} />
                     <div>
                       <h3 className="font-semibold text-foreground">{feature.title}</h3>
                       <p className="text-sm text-muted-foreground">{feature.description}</p>
@@ -177,11 +177,11 @@ export function PatentorLanding() {
               Get started with professional patent and academic writing tools
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-primary hover:bg-primary/90 text-lg px-8 py-6" onClick={() => window.location.href = '/patent-drafting'}>
+              <Button size="lg" className="bg-primary hover:bg-primary/90 text-lg px-8 py-6" onClick={() => window.location.href = '/drafting'}>
                 Start Writing
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button variant="outline" size="lg" className="text-lg px-8 py-6" onClick={() => window.location.href = '/patent-drafting'}>
+              <Button variant="outline" size="lg" className="text-lg px-8 py-6" onClick={() => window.location.href = '/drafting'}>
                 View Templates
               </Button>
             </div>
