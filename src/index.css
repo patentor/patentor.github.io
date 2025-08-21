@@ -2,41 +2,68 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Professional Patent Platform Design System */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Core Brand Colors */
+    --background: 250 100% 99%;
+    --foreground: 213 27% 8%;
 
+    /* Card System */
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 213 27% 8%;
 
+    /* Interactive Elements */
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 213 27% 8%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary Brand - Professional Deep Blue */
+    --primary: 213 94% 68%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 213 94% 75%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary - Elegant Navy */
+    --secondary: 213 27% 15%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Muted Tones */
+    --muted: 220 14% 96%;
+    --muted-foreground: 213 27% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Accent - Professional Gold */
+    --accent: 43 96% 56%;
+    --accent-foreground: 213 27% 8%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Success - Patent Green */
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Destructive */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --radius: 0.5rem;
+    /* Borders & Inputs */
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 213 94% 68%;
+
+    /* Patent-specific colors */
+    --patent-draft: 213 20% 97%;
+    --patent-published: 142 25% 95%;
+    --patent-pending: 43 20% 95%;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(213 94% 68%), hsl(213 94% 75%));
+    --gradient-secondary: linear-gradient(135deg, hsl(213 27% 15%), hsl(213 27% 25%));
+    --gradient-hero: linear-gradient(135deg, hsl(213 94% 68%), hsl(43 96% 56%));
+    
+    /* Shadows */
+    --shadow-elegant: 0 10px 40px -10px hsl(213 94% 68% / 0.2);
+    --shadow-card: 0 4px 20px -2px hsl(213 27% 8% / 0.08);
+    --shadow-glow: 0 0 30px hsl(213 94% 75% / 0.3);
+
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -56,41 +83,50 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    /* Dark Mode Patent Colors */
+    --background: 213 27% 8%;
+    --foreground: 0 0% 98%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 213 27% 12%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 213 27% 12%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 213 94% 75%;
+    --primary-foreground: 213 27% 8%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 213 27% 18%;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 213 27% 15%;
+    --muted-foreground: 213 10% 70%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 43 96% 60%;
+    --accent-foreground: 213 27% 8%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --success: 142 76% 45%;
+    --success-foreground: 0 0% 100%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --destructive: 0 84% 65%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 213 27% 18%;
+    --input: 213 27% 18%;
+    --ring: 213 94% 75%;
+
+    --patent-draft: 213 27% 15%;
+    --patent-published: 142 25% 15%;
+    --patent-pending: 43 20% 15%;
+
+    --sidebar-background: 213 27% 10%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 213 94% 75%;
+    --sidebar-primary-foreground: 213 27% 8%;
+    --sidebar-accent: 213 27% 15%;
+    --sidebar-accent-foreground: 0 0% 95%;
+    --sidebar-border: 213 27% 18%;
+    --sidebar-ring: 213 94% 75%;
   }
 }
 
@@ -101,5 +137,101 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
+
+  /* Patent-specific typography */
+  .patent-title {
+    @apply text-2xl font-bold text-foreground tracking-tight;
+  }
+
+  .patent-section {
+    @apply text-lg font-semibold text-foreground mb-3;
+  }
+
+  .patent-content {
+    @apply text-sm leading-relaxed text-muted-foreground;
+    line-height: 1.6;
+  }
+
+  /* Professional animations */
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+
+  /* Gradient utilities */
+  .bg-gradient-primary {
+    background: var(--gradient-primary);
+  }
+
+  .bg-gradient-secondary {
+    background: var(--gradient-secondary);
+  }
+
+  .bg-gradient-hero {
+    background: var(--gradient-hero);
+  }
+
+  /* Shadow utilities */
+  .shadow-elegant {
+    box-shadow: var(--shadow-elegant);
+  }
+
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+}
+
+@layer components {
+  /* Patent status indicators */
+  .patent-status-draft {
+    @apply bg-patent-draft border-l-4 border-primary;
+  }
+
+  .patent-status-published {
+    @apply bg-patent-published border-l-4 border-success;
+  }
+
+  .patent-status-pending {
+    @apply bg-patent-pending border-l-4 border-accent;
+  }
+
+  /* Professional form styling */
+  .patent-form-section {
+    @apply bg-card border border-border rounded-lg p-6 space-y-4 shadow-card;
+  }
+}
+
+/* Custom keyframes */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes glow {
+  from { box-shadow: 0 0 20px hsl(213 94% 68% / 0.4); }
+  to { box-shadow: 0 0 40px hsl(213 94% 75% / 0.6); }
 }
