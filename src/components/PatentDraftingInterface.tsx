@@ -75,7 +75,7 @@ export function PatentDraftingInterface() {
         <div className="flex-1 flex">
           {/* Left: Form Sections */}
           <div className="flex-1 overflow-y-auto p-6">
-            <div className="max-w-4xl space-y-6">
+            <div className="max-w-4xl space-y-8">
               
               {/* Title & Basic Info */}
               <Card className="patent-form-section">
