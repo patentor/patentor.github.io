@@ -1,3 +1,4 @@
+
 # Build and deploy Vite React app to GitHub Pages
 name: Deploy Vite App to Pages
 
@@ -40,6 +41,10 @@ jobs:
       
       - name: Build
         run: npm run build
+
+      # SPA fallback so client-side routes work on GitHub Pages
+      - name: Add 404 fallback
+        run: cp dist/index.html dist/404.html
         
       - name: Setup Pages
         uses: actions/configure-pages@v5
