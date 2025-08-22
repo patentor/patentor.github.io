@@ -16,6 +16,7 @@ import {
   Star
 } from "lucide-react";
 import heroImage from "@/assets/hero-patent.jpg";
+import { Link } from "react-router-dom";
 
 export function PatentorLanding() {
   const features = [
@@ -87,7 +88,7 @@ export function PatentorLanding() {
 
             <div className="flex items-center gap-3">
               <Button variant="outline" onClick={() => alert('Sign in functionality coming soon')}>Sign In</Button>
-              <Button className="bg-primary hover:bg-primary/90" onClick={() => window.location.href = '/drafting'}>Get Started</Button>
+              <Button asChild className="bg-primary hover:bg-primary/90"><Link to="/drafting">Get Started</Link></Button>
             </div>
           </div>
         </div>
@@ -112,13 +113,17 @@ export function PatentorLanding() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up">
-              <Button size="lg" className="bg-primary hover:bg-primary/90 text-lg px-8 py-6" onClick={() => window.location.href = '/drafting'}>
-                Start Patent Draft
-                <ArrowRight className="ml-2 h-5 w-5" />
+              <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-lg px-8 py-6">
+                <Link to="/drafting">
+                  Start Patent Draft
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
               </Button>
-              <Button variant="outline" size="lg" className="text-lg px-8 py-6" onClick={() => window.location.href = '/drafting'}>
-                <FileText className="mr-2 h-5 w-5" />
-                View Demo
+              <Button asChild variant="outline" size="lg" className="text-lg px-8 py-6">
+                <Link to="/drafting">
+                  <FileText className="mr-2 h-5 w-5" />
+                  View Demo
+                </Link>
               </Button>
             </div>
 
@@ -177,12 +182,14 @@ export function PatentorLanding() {
               Get started with professional patent and academic writing tools
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-primary hover:bg-primary/90 text-lg px-8 py-6" onClick={() => window.location.href = '/drafting'}>
-                Start Writing
-                <ArrowRight className="ml-2 h-5 w-5" />
+              <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-lg px-8 py-6">
+                <Link to="/drafting">
+                  Start Writing
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
               </Button>
-              <Button variant="outline" size="lg" className="text-lg px-8 py-6" onClick={() => window.location.href = '/drafting'}>
-                View Templates
+              <Button asChild variant="outline" size="lg" className="text-lg px-8 py-6">
+                <Link to="/drafting">View Templates</Link>
               </Button>
             </div>
           </div>
