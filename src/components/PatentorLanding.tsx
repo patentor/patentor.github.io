@@ -103,7 +103,7 @@ export function PatentorLanding() {
           <div className="max-w-4xl mx-auto text-center space-y-8">
             <div className="space-y-4 animate-fade-in">
               <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-foreground">
-                Patentor.ai — AI agentic tool for patent and academic deep research, drafting, and commercialization
+                AI Patent Research & Drafting
               </h1>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
                 Draft, analyze, and refine patents side by side with an AI research companion. 
