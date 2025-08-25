@@ -15,7 +15,7 @@ import {
   Lightbulb,
   Search,
   PenTool,
-  Zap
+  Brain
 } from "lucide-react";
 
 export function PatentDraftingInterface() {
@@ -74,8 +74,8 @@ export function PatentDraftingInterface() {
         {/* Content Area */}
         <div className="flex-1 flex">
           {/* Left: Form Sections */}
-          <div className="flex-1 overflow-y-auto p-6">
-            <div className="max-w-4xl space-y-8">
+          <div className="flex-1 overflow-y-auto p-6 pr-2">
+            <div className="max-w-3xl space-y-8">
               
               {/* Title & Basic Info */}
               <Card className="patent-form-section">
@@ -204,7 +204,7 @@ export function PatentDraftingInterface() {
           </div>
 
           {/* Right: AI Assistant Panel */}
-          <div className="w-80 border-l bg-muted/30">
+          <div className="w-96 border-l bg-muted/30 flex-shrink-0">
             <div className="p-4 border-b bg-card">
               <h3 className="font-semibold flex items-center gap-2">
                 <Bot className="h-5 w-5 text-primary" />
@@ -220,7 +220,7 @@ export function PatentDraftingInterface() {
                 </CardHeader>
                 <CardContent className="space-y-2">
                   <Button variant="outline" size="sm" className="w-full justify-start">
-                    <Zap className="mr-2 h-4 w-4" />
+                    <Brain className="mr-2 h-4 w-4" />
                     Improve Claims Language
                   </Button>
                   <Button variant="outline" size="sm" className="w-full justify-start">

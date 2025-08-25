@@ -9,7 +9,6 @@ import {
   ShoppingCart, 
   TrendingUp,
   Briefcase,
-  Zap,
   Shield,
   Brain,
   CheckCircle,
@@ -59,10 +58,10 @@ export function PatentorLanding() {
   ];
 
   const stats = [
-    { number: "50K+", label: "Patents Processed" },
-    { number: "2.5K+", label: "IP Attorneys" },
-    { number: "$50M+", label: "Patent Values Tracked" },
-    { number: "98%", label: "Success Rate" }
+    { number: "3.3M", label: "Active US Patents" },
+    { number: "17M", label: "Patents Worldwide" },
+    { number: "USPTO", label: "Official Database" },
+    { number: "WIPO", label: "Global Registry" }
   ];
 
   return (
@@ -104,11 +103,11 @@ export function PatentorLanding() {
           <div className="max-w-4xl mx-auto text-center space-y-8">
             <div className="space-y-4 animate-fade-in">
               <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-foreground">
-                AI Tool for Patent & Academic Writing
+                Patentor.ai — AI agentic tool for patent and academic deep research, drafting, and commercialization
               </h1>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                Streamline your patent drafting process with AI-powered research, writing assistance, 
-                and professional services all in one platform.
+                Draft, analyze, and refine patents side by side with an AI research companion. 
+                From research to commercialization — all in one pipeline.
               </p>
             </div>
 
