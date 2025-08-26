@@ -58,8 +58,12 @@ export function PatentorSidebar() {
       : "hover:bg-muted/50 text-muted-foreground hover:text-foreground";
 
   return (
-    <Sidebar className={collapsed ? "w-16" : "w-80"} collapsible="icon">
-      <SidebarContent className="bg-card border-r">
+    <Sidebar 
+      className="border-r"
+      collapsible="icon" 
+      variant="sidebar"
+    >
+      <SidebarContent className="bg-card">
         {/* New Patent Button */}
         <div className="p-4">
           <Button 
