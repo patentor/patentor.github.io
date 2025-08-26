@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { NavLink } from "react-router-dom";
 import {
   FileText,
   Search,
@@ -16,7 +17,12 @@ import {
   Share2,
   Lightbulb,
   PenTool,
-  Brain
+  Brain,
+  FolderOpen,
+  Users,
+  ShoppingCart,
+  Briefcase,
+  TrendingUp
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -160,9 +166,84 @@ export function PatentDraftingInterface() {
       {/* Header */}
       <div className="fixed top-0 left-0 right-0 z-50 border-b bg-card px-6 py-4">
         <div className="flex items-center justify-between">
-          <div>
-            <h1 className="patent-title">Patent Drafting Workspace</h1>
-            <p className="text-sm text-muted-foreground">Draft • Last saved 2 minutes ago</p>
+          <div className="flex items-center gap-8">
+            <div>
+              <h1 className="patent-title">Patent Drafting Workspace</h1>
+              <p className="text-sm text-muted-foreground">Draft • Last saved 2 minutes ago</p>
+            </div>
+            
+            {/* Horizontal Navigation Bar */}
+            <nav className="flex items-center gap-1 bg-muted/50 rounded-lg p-1">
+              <NavLink 
+                to="/drafting" 
+                className={({ isActive }) => `flex items-center gap-2 px-3 py-1.5 rounded-md text-sm transition-colors ${
+                  isActive ? 'bg-primary text-primary-foreground' : 'hover:bg-background text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                <FileText className="h-4 w-4" />
+                <span>Draft</span>
+              </NavLink>
+              
+              <NavLink 
+                to="/research" 
+                className={({ isActive }) => `flex items-center gap-2 px-3 py-1.5 rounded-md text-sm transition-colors ${
+                  isActive ? 'bg-primary text-primary-foreground' : 'hover:bg-background text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                <Search className="h-4 w-4" />
+                <span>Research</span>
+              </NavLink>
+              
+              <NavLink 
+                to="/patents" 
+                className={({ isActive }) => `flex items-center gap-2 px-3 py-1.5 rounded-md text-sm transition-colors ${
+                  isActive ? 'bg-primary text-primary-foreground' : 'hover:bg-background text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                <FolderOpen className="h-4 w-4" />
+                <span>Patents</span>
+              </NavLink>
+              
+              <NavLink 
+                to="/attorneys" 
+                className={({ isActive }) => `flex items-center gap-2 px-3 py-1.5 rounded-md text-sm transition-colors ${
+                  isActive ? 'bg-primary text-primary-foreground' : 'hover:bg-background text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                <Users className="h-4 w-4" />
+                <span>Attorneys</span>
+              </NavLink>
+              
+              <NavLink 
+                to="/marketplace" 
+                className={({ isActive }) => `flex items-center gap-2 px-3 py-1.5 rounded-md text-sm transition-colors ${
+                  isActive ? 'bg-primary text-primary-foreground' : 'hover:bg-background text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                <ShoppingCart className="h-4 w-4" />
+                <span>Market</span>
+              </NavLink>
+              
+              <NavLink 
+                to="/commercialization" 
+                className={({ isActive }) => `flex items-center gap-2 px-3 py-1.5 rounded-md text-sm transition-colors ${
+                  isActive ? 'bg-primary text-primary-foreground' : 'hover:bg-background text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                <Briefcase className="h-4 w-4" />
+                <span>Commercialize</span>
+              </NavLink>
+              
+              <NavLink 
+                to="/investors" 
+                className={({ isActive }) => `flex items-center gap-2 px-3 py-1.5 rounded-md text-sm transition-colors ${
+                  isActive ? 'bg-primary text-primary-foreground' : 'hover:bg-background text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                <TrendingUp className="h-4 w-4" />
+                <span>Investors</span>
+              </NavLink>
+            </nav>
           </div>
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-2 text-sm bg-muted border rounded-lg px-3 py-1.5">
