@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { NavLink } from "react-router-dom";
 import {
   FileText,
   Search,
@@ -8,26 +7,24 @@ import {
   Check,
   X,
   ChevronDown,
-  PanelLeftClose,
-  PanelRightClose,
   Plus,
   Bot,
   Save,
   Download,
   Share2,
-  Lightbulb,
   PenTool,
   Brain,
-  FolderOpen,
-  Users,
-  ShoppingCart,
-  Briefcase,
-  TrendingUp
+  Send,
+  MessageSquare,
+  Clock
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
+import { Textarea } from "@/components/ui/textarea";
+// Using the uploaded USPTO template image
+const usptoTemplate = "/lovable-uploads/016de9c6-6c47-4343-94e6-20a5d6af0906.png";
 
 // Mock Data
 const SAMPLE_SUGGESTIONS = [
@@ -123,24 +120,46 @@ function Accordion({
 }
 
 export function PatentDraftingInterface() {
-  const [collapsed, setCollapsed] = useState(false);
-  const { width, onMouseDown } = useResizable();
-
   const [patentData, setPatentData] = useState({
-    title: "Adaptive Cathode Sintering for Long-Life Batteries",
-    inventors: "John Doe, Jane Smith",
+    title: "Adaptive Cathode Sintering System",
+    inventors: "John Doe, Jane Smith, Michael Chen",
     assignee: "Tech Innovations Inc.",
     abstract: "Systems and methods for optimizing battery cathode microstructure via agentic feedback using in-situ impedance during thermal processing.",
-    background: "Traditional sintering uses static schedules that fail to account for impedance drift, leading to suboptimal grain boundary properties.",
-    summary: "The system measures impedance continuously, updates a thermal schedule agentically, and records parameters for repeatable manufacturing.",
-    briefDescription: "",
-    detailedDescription: "",
+    background: "Traditional sintering uses static schedules that fail to account for impedance drift, leading to suboptimal grain boundary properties and reduced battery performance.",
+    summary: "The system measures impedance continuously, updates a thermal schedule agentically, and records parameters for repeatable manufacturing processes.",
+    briefDescription: "Figure 1 shows the system architecture with impedance sensors and thermal control loops.",
+    detailedDescription: "The invention comprises a sintering system with real-time impedance monitoring capabilities...",
     claims: [
-      "A method comprising: measuring impedance in real time; adjusting sintering temperature; recording a recipe; and producing a cathode with improved cycle life."
+      "A method comprising: measuring impedance in real time; adjusting sintering temperature based on measured impedance; recording optimized parameters; and producing a cathode with improved cycle life.",
+      "The method of claim 1, wherein the impedance measurements are taken at frequencies between 1 Hz and 1 MHz.",
+      "The method of claim 1, further comprising machine learning algorithms to predict optimal temperature profiles."
     ]
   });
 
-  const [notes, setNotes] = useState("");
+  const [chatMessages, setChatMessages] = useState<Array<{
+    id: number;
+    type: "ai" | "user";
+    content: string;
+  }>>([
+    {
+      id: 1,
+      type: "ai" as const,
+      content: "I'm your patent research assistant. I can help you research prior art, improve claims language, and suggest technical improvements. What would you like to work on?"
+    }
+  ]);
+  
+  const [currentMessage, setCurrentMessage] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
+  const [expandedSections, setExpandedSections] = useState({
+    title: true,
+    abstract: true,
+    claims: true,
+    background: false,
+    summary: false,
+    briefDescription: false,
+    detailedDescription: false
+  });
+
   const provisionalDeadline = "2025-12-31T23:59:59Z";
   const { days, hours, minutes, seconds } = useCountdown(provisionalDeadline);
 
@@ -149,6 +168,38 @@ export function PatentDraftingInterface() {
       ...prev,
       claims: [...prev.claims, text]
     }));
+  };
+
+  const toggleSection = (section: keyof typeof expandedSections) => {
+    setExpandedSections(prev => ({
+      ...prev,
+      [section]: !prev[section]
+    }));
+  };
+
+  const sendMessage = () => {
+    if (!currentMessage.trim()) return;
+    
+    const newMessage = {
+      id: Date.now(),
+      type: "user" as const,
+      content: currentMessage
+    };
+    
+    setChatMessages(prev => [...prev, newMessage]);
+    setCurrentMessage("");
+    setIsTyping(true);
+    
+    // Simulate AI response
+    setTimeout(() => {
+      const aiResponse = {
+        id: Date.now() + 1,
+        type: "ai" as const,
+        content: "I'll help you research that topic. Based on your query, I found several relevant prior art references and can suggest improvements to your claims language."
+      };
+      setChatMessages(prev => [...prev, aiResponse]);
+      setIsTyping(false);
+    }, 2000);
   };
 
   const replaceSection = (section: string, text: string) => {
@@ -162,94 +213,20 @@ export function PatentDraftingInterface() {
   };
 
   return (
-    <div className="flex h-screen bg-background">
-      {/* Header */}
-      <div className="fixed top-0 left-0 right-0 z-50 border-b bg-card px-6 py-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-8">
-            <div>
-              <h1 className="patent-title">Patent Drafting Workspace</h1>
-              <p className="text-sm text-muted-foreground">Draft • Last saved 2 minutes ago</p>
-            </div>
-            
-            {/* Horizontal Navigation Bar */}
-            <nav className="flex items-center gap-1 bg-muted/50 rounded-lg p-1">
-              <NavLink 
-                to="/drafting" 
-                className={({ isActive }) => `flex items-center gap-2 px-3 py-1.5 rounded-md text-sm transition-colors ${
-                  isActive ? 'bg-primary text-primary-foreground' : 'hover:bg-background text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                <FileText className="h-4 w-4" />
-                <span>Draft</span>
-              </NavLink>
-              
-              <NavLink 
-                to="/research" 
-                className={({ isActive }) => `flex items-center gap-2 px-3 py-1.5 rounded-md text-sm transition-colors ${
-                  isActive ? 'bg-primary text-primary-foreground' : 'hover:bg-background text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                <Search className="h-4 w-4" />
-                <span>Research</span>
-              </NavLink>
-              
-              <NavLink 
-                to="/patents" 
-                className={({ isActive }) => `flex items-center gap-2 px-3 py-1.5 rounded-md text-sm transition-colors ${
-                  isActive ? 'bg-primary text-primary-foreground' : 'hover:bg-background text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                <FolderOpen className="h-4 w-4" />
-                <span>Patents</span>
-              </NavLink>
-              
-              <NavLink 
-                to="/attorneys" 
-                className={({ isActive }) => `flex items-center gap-2 px-3 py-1.5 rounded-md text-sm transition-colors ${
-                  isActive ? 'bg-primary text-primary-foreground' : 'hover:bg-background text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                <Users className="h-4 w-4" />
-                <span>Attorneys</span>
-              </NavLink>
-              
-              <NavLink 
-                to="/marketplace" 
-                className={({ isActive }) => `flex items-center gap-2 px-3 py-1.5 rounded-md text-sm transition-colors ${
-                  isActive ? 'bg-primary text-primary-foreground' : 'hover:bg-background text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                <ShoppingCart className="h-4 w-4" />
-                <span>Market</span>
-              </NavLink>
-              
-              <NavLink 
-                to="/commercialization" 
-                className={({ isActive }) => `flex items-center gap-2 px-3 py-1.5 rounded-md text-sm transition-colors ${
-                  isActive ? 'bg-primary text-primary-foreground' : 'hover:bg-background text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                <Briefcase className="h-4 w-4" />
-                <span>Commercialize</span>
-              </NavLink>
-              
-              <NavLink 
-                to="/investors" 
-                className={({ isActive }) => `flex items-center gap-2 px-3 py-1.5 rounded-md text-sm transition-colors ${
-                  isActive ? 'bg-primary text-primary-foreground' : 'hover:bg-background text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                <TrendingUp className="h-4 w-4" />
-                <span>Investors</span>
-              </NavLink>
-            </nav>
+    <div className="min-h-screen bg-background">
+      <div className="container mx-auto px-6 py-6">
+        {/* Workspace Header */}
+        <div className="flex items-center justify-between mb-6">
+          <div className="text-center flex-1">
+            <h1 className="patent-title">Patent Drafting Workspace</h1>
+            <p className="text-sm text-muted-foreground">Draft • Last saved 2 minutes ago</p>
           </div>
+          
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-2 text-sm bg-muted border rounded-lg px-3 py-1.5">
-              <Timer className="w-4 h-4" />
-              <span>Provisional:</span>
-              <span className="font-mono">
+              <Clock className="w-4 h-4" />
+              <span>Patent Filing Deadline:</span>
+              <span className="font-mono text-destructive">
                 {String(days).padStart(2, "0")}d:{String(hours).padStart(2, "0")}h:{String(minutes).padStart(2, "0")}m:{String(seconds).padStart(2, "0")}s
               </span>
             </div>
@@ -261,276 +238,285 @@ export function PatentDraftingInterface() {
               <Download className="mr-2 h-4 w-4" />
               Export
             </Button>
-            <Button variant="default" size="sm" className="bg-gradient-primary">
-              <Share2 className="mr-2 h-4 w-4" />
-              Share
-            </Button>
           </div>
         </div>
-      </div>
 
-      {/* Main Layout */}
-      <div className="flex w-full pt-20">
-        {/* Sidebar / Research Panel */}
-        <AnimatePresence initial={false}>
-          {!collapsed && (
-            <motion.aside
-              initial={{ x: -20, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              exit={{ x: -20, opacity: 0 }}
-              style={{ width }}
-              className="shrink-0 border-r bg-muted/30 relative"
-            >
-              <div className="p-4 border-b bg-card">
-                <div className="flex items-center justify-between">
-                  <h3 className="font-semibold flex items-center gap-2">
-                    <Bot className="h-5 w-5 text-primary" />
-                    AI Research Assistant
-                  </h3>
-                  <button
-                    onClick={() => setCollapsed(true)}
-                    className="p-1.5 rounded hover:bg-muted"
-                    title="Collapse"
-                  >
-                    <PanelLeftClose className="w-4 h-4" />
-                  </button>
-                </div>
+        {/* Main Two-Panel Layout */}
+        <div className="grid lg:grid-cols-2 gap-6">
+          {/* Left: AI Chat Assistant */}
+          <div className="bg-card border rounded-lg shadow-card h-[700px] flex flex-col">
+            <div className="border-b p-4">
+              <div className="flex items-center gap-2">
+                <Bot className="h-5 w-5 text-primary" />
+                <h3 className="font-semibold">AI Research & Drafting Assistant</h3>
               </div>
-
-              <div className="p-4 space-y-4 overflow-y-auto h-full">
-                <div className="text-xs text-muted-foreground mb-3">
-                  Explore papers, prior art, and variants. Accept findings into the draft.
-                </div>
-
-                {/* Chat Interface */}
-                <div className="space-y-2">
-                  <textarea
-                    placeholder="Ask the agent to research prior art around impedance-based thermal schedules..."
-                    className="w-full h-28 rounded border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring resize-none"
-                    value={notes}
-                    onChange={(e) => setNotes(e.target.value)}
-                  />
-                  <div className="flex gap-2">
-                    <Button size="sm" className="bg-gradient-primary">
-                      <Search className="w-4 h-4 mr-1" />
-                      Run Agent
-                    </Button>
-                    <Button variant="outline" size="sm">Save Note</Button>
-                  </div>
-                </div>
-
-                {/* Patent Language AI */}
-                <div className="border rounded-lg p-3">
-                  <h4 className="text-sm font-medium mb-2">Patent Language AI</h4>
-                  <div className="space-y-2">
-                    <Button variant="outline" size="sm" className="w-full justify-start">
-                      <Brain className="mr-2 h-4 w-4" />
-                      Improve Claims Language
-                    </Button>
-                    <Button variant="outline" size="sm" className="w-full justify-start">
-                      <PenTool className="mr-2 h-4 w-4" />
-                      Generate Abstract
-                    </Button>
-                    <Button variant="outline" size="sm" className="w-full justify-start">
-                      <Search className="mr-2 h-4 w-4" />
-                      Prior Art Search
-                    </Button>
-                  </div>
-                </div>
-
-                {/* AI Suggestions */}
-                <div className="space-y-2">
-                  <h4 className="text-sm font-medium">AI Suggestions</h4>
-                  {SAMPLE_SUGGESTIONS.map((s) => (
-                    <div key={s.id} className="border rounded-lg p-3">
-                      <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">{s.section}</div>
-                      <div className="text-sm mb-2">{s.text}</div>
-                      <div className="flex gap-2">
-                        <button
-                          className="inline-flex items-center gap-1 px-2 py-1 rounded bg-green-600 text-white text-xs hover:bg-green-700"
-                          onClick={() => replaceSection(s.section, s.text)}
-                        >
-                          <Check className="w-3 h-3" /> Accept
-                        </button>
-                        <button className="inline-flex items-center gap-1 px-2 py-1 rounded bg-red-600 text-white text-xs hover:bg-red-700">
-                          <X className="w-3 h-3" /> Dismiss
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Drag Handle */}
-              <div
-                onMouseDown={onMouseDown}
-                className="absolute top-0 right-0 h-full w-1 cursor-col-resize bg-border hover:bg-primary/50 transition-colors"
-                title="Drag to resize"
-              />
-            </motion.aside>
-          )}
-        </AnimatePresence>
-
-        {/* Main Workspace */}
-        <div className="flex-1 min-w-0 flex flex-col">
-          <div className="flex items-center justify-between px-4 py-3 border-b bg-card">
-            <div className="flex items-center gap-2">
-              <FileText className="w-4 h-4" />
-              <h3 className="font-semibold">Workspace</h3>
+              <p className="text-xs text-muted-foreground mt-1">
+                Research prior art, improve claims, generate content
+              </p>
             </div>
-            <button
-              onClick={() => setCollapsed((c) => !c)}
-              className="p-1.5 rounded hover:bg-muted"
-              title={collapsed ? "Expand panel" : "Collapse panel"}
-            >
-              {collapsed ? <PanelRightClose className="w-4 h-4" /> : <PanelLeftClose className="w-4 h-4" />}
-            </button>
+
+            {/* Chat Messages */}
+            <div className="flex-1 p-4 overflow-y-auto space-y-3">
+              {chatMessages.map((message) => (
+                <div
+                  key={message.id}
+                  className={`flex gap-3 ${
+                    message.type === "user" ? "justify-end" : "justify-start"
+                  }`}
+                >
+                  <div
+                    className={`max-w-[80%] px-3 py-2 rounded-lg text-sm ${
+                      message.type === "user"
+                        ? "bg-primary text-primary-foreground"
+                        : "bg-muted text-foreground"
+                    }`}
+                  >
+                    {message.content}
+                  </div>
+                </div>
+              ))}
+              
+              {isTyping && (
+                <div className="flex gap-3 justify-start">
+                  <div className="bg-muted text-foreground px-3 py-2 rounded-lg text-sm">
+                    <div className="flex gap-1">
+                      <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" />
+                      <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" style={{animationDelay: '0.1s'}} />
+                      <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" style={{animationDelay: '0.2s'}} />
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Quick Actions */}
+            <div className="border-t p-4 space-y-3">
+              <div className="flex flex-wrap gap-2">
+                <Button variant="outline" size="sm" className="text-xs">
+                  <Brain className="mr-1 h-3 w-3" />
+                  Improve Claims
+                </Button>
+                <Button variant="outline" size="sm" className="text-xs">
+                  <PenTool className="mr-1 h-3 w-3" />
+                  Generate Abstract
+                </Button>
+                <Button variant="outline" size="sm" className="text-xs">
+                  <Search className="mr-1 h-3 w-3" />
+                  Prior Art Search
+                </Button>
+              </div>
+
+              {/* Chat Input */}
+              <div className="flex gap-2">
+                <Textarea
+                  placeholder="Ask me to research, improve, or generate patent content..."
+                  value={currentMessage}
+                  onChange={(e) => setCurrentMessage(e.target.value)}
+                  className="flex-1 min-h-[60px] text-sm"
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                      e.preventDefault();
+                      sendMessage();
+                    }
+                  }}
+                />
+                <Button onClick={sendMessage} size="sm" className="bg-gradient-primary">
+                  <Send className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+
+            {/* AI Suggestions */}
+            <div className="border-t p-4 space-y-2">
+              <h4 className="text-sm font-medium flex items-center gap-2">
+                <MessageSquare className="h-4 w-4" />
+                AI Suggestions
+              </h4>
+              {SAMPLE_SUGGESTIONS.map((s) => (
+                <div key={s.id} className="border rounded-lg p-3 text-sm">
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">
+                    {s.section}
+                  </div>
+                  <div className="text-sm mb-2">{s.text}</div>
+                  <div className="flex gap-2">
+                    <button
+                      className="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-success text-success-foreground text-xs hover:bg-success/90"
+                      onClick={() => replaceSection(s.section, s.text)}
+                    >
+                      <Check className="w-3 h-3" /> Accept
+                    </button>
+                    <button className="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-destructive text-destructive-foreground text-xs hover:bg-destructive/90">
+                      <X className="w-3 h-3" /> Dismiss
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
 
-          {/* Content Area */}
-          <div className="flex-1 overflow-y-auto">
-            <div className="grid lg:grid-cols-5 gap-6 p-6 min-h-full">
-              {/* Left: Form Sections */}
-              <div className="lg:col-span-2 space-y-4">
-                <Accordion title="Title & Inventors" defaultOpen>
-                  <div className="space-y-3">
-                    <div>
-                      <Label htmlFor="title">Patent Title</Label>
-                      <Input 
-                        id="title"
-                        value={patentData.title}
-                        onChange={(e) => setPatentData({...patentData, title: e.target.value})}
-                        className="mt-1"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="inventors">Inventors</Label>
-                      <Input 
-                        id="inventors"
-                        value={patentData.inventors}
-                        onChange={(e) => setPatentData({...patentData, inventors: e.target.value})}
-                        className="mt-1"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="assignee">Assignee</Label>
-                      <Input 
-                        id="assignee"
-                        value={patentData.assignee}
-                        onChange={(e) => setPatentData({...patentData, assignee: e.target.value})}
-                        className="mt-1"
-                      />
-                    </div>
+          {/* Right: USPTO-Style Patent Preview */}
+          <div className="bg-white border rounded-lg shadow-card overflow-hidden">
+            {/* USPTO Header */}
+            <div className="border-b bg-gray-50 p-4">
+              <div className="flex justify-between items-start">
+                <div className="text-xs text-gray-600">
+                  <div className="font-mono">US 20240123456 A1</div>
+                  <div className="mt-1">United States Patent Application Publication</div>
+                  <div className="mt-1">Pub. No.: US 20240123456 A1</div>
+                  <div>Pub. Date: Mar 28, 2024</div>
+                </div>
+                <div className="w-24 h-16 bg-gray-200 flex items-center justify-center text-xs text-gray-500 border">
+                  BARCODE
+                </div>
+              </div>
+            </div>
+
+            {/* Patent Content */}
+            <div className="p-6 h-[600px] overflow-y-auto text-sm leading-relaxed font-serif">
+              <div className="space-y-6">
+                {/* Title */}
+                <div className="text-center">
+                  <h1 className="text-lg font-bold uppercase tracking-wide">
+                    {patentData.title || "(Patent Title)"}
+                  </h1>
+                </div>
+
+                {/* Inventor Information */}
+                <div className="space-y-2">
+                  <div className="font-semibold">(75) Inventors:</div>
+                  <div className="pl-4">{patentData.inventors}</div>
+                  
+                  <div className="font-semibold">(73) Assignee:</div>
+                  <div className="pl-4">{patentData.assignee}</div>
+                </div>
+
+                {/* Abstract */}
+                <div>
+                  <div className="font-semibold">ABSTRACT</div>
+                  <div className="mt-2 text-justify">
+                    {patentData.abstract || "(Abstract to be provided)"}
                   </div>
-                </Accordion>
+                </div>
 
-                <Accordion title="Abstract" defaultOpen>
-                  <textarea
-                    className="w-full h-28 px-3 py-2 rounded border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring resize-none"
-                    value={patentData.abstract}
-                    onChange={(e) => setPatentData({...patentData, abstract: e.target.value})}
-                    placeholder="A concise technical summary of the invention..."
-                  />
-                </Accordion>
+                {/* Background */}
+                <div>
+                  <div className="font-semibold">BACKGROUND OF THE INVENTION</div>
+                  <div className="mt-2 text-justify">
+                    <div className="font-semibold">[0001]</div>
+                    {patentData.background || "(Background to be provided)"}
+                  </div>
+                </div>
 
-                <Accordion title="Background">
-                  <textarea
-                    className="w-full h-28 px-3 py-2 rounded border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring resize-none"
-                    value={patentData.background}
-                    onChange={(e) => setPatentData({...patentData, background: e.target.value})}
-                    placeholder="Describe the context and prior art..."
-                  />
-                </Accordion>
+                {/* Summary */}
+                <div>
+                  <div className="font-semibold">SUMMARY OF THE INVENTION</div>
+                  <div className="mt-2 text-justify">
+                    <div className="font-semibold">[0002]</div>
+                    {patentData.summary || "(Summary to be provided)"}
+                  </div>
+                </div>
 
-                <Accordion title="Summary">
-                  <textarea
-                    className="w-full h-28 px-3 py-2 rounded border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring resize-none"
-                    value={patentData.summary}
-                    onChange={(e) => setPatentData({...patentData, summary: e.target.value})}
-                    placeholder="Provide a comprehensive overview..."
-                  />
-                </Accordion>
-
-                <Accordion title="Claims" defaultOpen>
-                  <div className="space-y-2">
+                {/* Claims */}
+                <div>
+                  <div className="font-semibold">CLAIMS</div>
+                  <div className="mt-2">
                     {patentData.claims.map((claim, i) => (
-                      <div key={i} className="flex items-start gap-2">
-                        <div className="text-xs opacity-60 mt-1 font-mono">{i + 1}.</div>
-                        <textarea
-                          className="flex-1 h-20 px-3 py-2 rounded border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring resize-none"
-                          value={claim}
-                          onChange={(e) => {
-                            const newClaims = [...patentData.claims];
-                            newClaims[i] = e.target.value;
-                            setPatentData({...patentData, claims: newClaims});
-                          }}
-                        />
+                      <div key={i} className="mb-3">
+                        <span className="font-semibold">{i + 1}. </span>
+                        <span className="text-justify">
+                          {claim || "(Claim to be provided)"}
+                        </span>
                       </div>
                     ))}
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => addClaim("")}
-                    >
-                      <Plus className="w-3 h-3 mr-1" /> Add Claim
-                    </Button>
-                  </div>
-                </Accordion>
-              </div>
-
-              {/* Right: Live Patent Preview */}
-              <div className="lg:col-span-3">
-                <div className="rounded-lg bg-card border p-6 shadow-sm min-h-[600px]">
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="text-sm text-muted-foreground">Live Patent Preview</div>
-                    <div className="text-xs text-muted-foreground">Auto-updates as you type</div>
-                  </div>
-                  
-                  <div className="grid grid-cols-2 gap-6 text-sm leading-relaxed">
-                    <div className="space-y-4">
-                      <div>
-                        <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Title</div>
-                        <div className="font-semibold">{patentData.title}</div>
-                        <div className="text-xs text-muted-foreground mt-1">
-                          Inventors: {patentData.inventors}
-                        </div>
-                        <div className="text-xs text-muted-foreground">
-                          Assignee: {patentData.assignee}
-                        </div>
-                      </div>
-
-                      <div>
-                        <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Abstract</div>
-                        <p className="text-justify">{patentData.abstract || <span className="opacity-50">(Not yet written)</span>}</p>
-                      </div>
-
-                      <div>
-                        <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Background</div>
-                        <p className="text-justify">{patentData.background || <span className="opacity-50">(Not yet written)</span>}</p>
-                      </div>
-                    </div>
-
-                    <div className="space-y-4">
-                      <div>
-                        <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Summary</div>
-                        <p className="text-justify">{patentData.summary || <span className="opacity-50">(Not yet written)</span>}</p>
-                      </div>
-                      
-                      <div>
-                        <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Claims</div>
-                        <ol className="list-decimal pl-5 space-y-2">
-                          {patentData.claims.map((c, i) => (
-                            <li key={i} className="text-justify">
-                              {c || <span className="opacity-50">(Empty claim)</span>}
-                            </li>
-                          ))}
-                        </ol>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* Collapsible Patent Sections */}
+        <div className="mt-6 space-y-4">
+          <h2 className="text-lg font-semibold">Patent Sections</h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {Object.entries(expandedSections).map(([section, expanded]) => (
+              <div key={section} className="border rounded-lg">
+                <button
+                  onClick={() => toggleSection(section as keyof typeof expandedSections)}
+                  className="w-full flex justify-between items-center p-4 hover:bg-muted/50"
+                >
+                  <span className="font-medium capitalize">{section.replace(/([A-Z])/g, ' $1').trim()}</span>
+                  <ChevronDown className={`w-4 h-4 transition-transform ${expanded ? "rotate-180" : ""}`} />
+                </button>
+                
+                <AnimatePresence initial={false}>
+                  {expanded && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      className="px-4 pb-4"
+                    >
+                      {section === 'title' && (
+                        <Input 
+                          value={patentData.title}
+                          onChange={(e) => setPatentData({...patentData, title: e.target.value})}
+                          placeholder="Enter patent title"
+                        />
+                      )}
+                      
+                      {section === 'inventors' && (
+                        <Input 
+                          value={patentData.inventors}
+                          onChange={(e) => setPatentData({...patentData, inventors: e.target.value})}
+                          placeholder="Enter inventors"
+                        />
+                      )}
+                      
+                      {['abstract', 'background', 'summary', 'briefDescription', 'detailedDescription'].includes(section) && (
+                        <Textarea
+                          className="min-h-[100px]"
+                          value={patentData[section as keyof typeof patentData] as string}
+                          onChange={(e) => setPatentData({
+                            ...patentData, 
+                            [section]: e.target.value
+                          })}
+                          placeholder={`Enter ${section}`}
+                        />
+                      )}
+                      
+                      {section === 'claims' && (
+                        <div className="space-y-2">
+                          {patentData.claims.map((claim, i) => (
+                            <div key={i} className="flex items-start gap-2">
+                              <div className="text-sm font-mono mt-2">{i + 1}.</div>
+                              <Textarea
+                                className="flex-1"
+                                value={claim}
+                                onChange={(e) => {
+                                  const newClaims = [...patentData.claims];
+                                  newClaims[i] = e.target.value;
+                                  setPatentData({...patentData, claims: newClaims});
+                                }}
+                                placeholder={`Enter claim ${i + 1}`}
+                              />
+                            </div>
+                          ))}
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => addClaim("")}
+                            className="mt-2"
+                          >
+                            <Plus className="w-4 h-4 mr-2" /> Add Claim
+                          </Button>
+                        </div>
+                      )}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ))}
           </div>
         </div>
       </div>

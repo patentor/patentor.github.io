@@ -19,6 +19,9 @@ import {
   Star
 } from "lucide-react";
 
+// Using the uploaded USPTO template image
+const usptoTemplate = "/lovable-uploads/016de9c6-6c47-4343-94e6-20a5d6af0906.png";
+
 const marketplaceData = [
   {
     id: "1",
@@ -37,7 +40,8 @@ const marketplaceData = [
     license: "Exclusive",
     exclusions: ["Competitors in same market"],
     revenue: 850000,
-    status: "available"
+    status: "available",
+    image: usptoTemplate
   },
   {
     id: "2", 
