@@ -18,6 +18,9 @@ import {
   Award
 } from "lucide-react";
 
+// Import patent image
+import patentApproved from "@/assets/patent-approved.jpg";
+
 const commercializationProjects = [
   {
     id: "1",
@@ -212,7 +215,15 @@ export function CommercializationInterface() {
                       onClick={() => setSelectedProject(project)}
                     >
                       <CardContent className="p-6">
-                        <div className="flex items-start justify-between mb-4">
+                        <div className="flex items-start gap-4 mb-4">
+                          <div className="w-16 h-12 rounded-lg overflow-hidden border bg-muted/30 flex-shrink-0">
+                            <img 
+                              src={patentApproved} 
+                              alt={`${project.patentTitle} patent`}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                          
                           <div className="flex-1">
                             <h3 className="font-semibold text-lg mb-2">{project.patentTitle}</h3>
                             <div className="flex items-center gap-4 mb-3">

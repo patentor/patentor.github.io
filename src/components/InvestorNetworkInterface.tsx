@@ -20,6 +20,10 @@ import {
   Phone
 } from "lucide-react";
 
+// Import investor photos  
+import investorFemale from "@/assets/investor-female.jpg";
+import investorMale from "@/assets/investor-male.jpg";
+
 const investorData = [
   {
     id: "1",
@@ -37,7 +41,8 @@ const investorData = [
     description: "Leading venture capital firm focused on deep tech innovations with proven track record in AI and quantum technologies.",
     recentInvestments: ["DeepMind acquisition", "Quantum Dynamics Series B", "RoboTech IPO"],
     expertise: "Technical due diligence, scaling operations",
-    networkValue: "High"
+    networkValue: "High",
+    profileImage: investorFemale
   },
   {
     id: "2",
@@ -55,7 +60,8 @@ const investorData = [
     description: "Specialized intellectual property investment fund focusing on breakthrough medical and biotechnology patents.",
     recentInvestments: ["BioNano licensing deal", "MedTech patent acquisition", "PharmaCorp partnership"],
     expertise: "IP valuation, regulatory approval",
-    networkValue: "Very High"
+    networkValue: "Very High",
+    profileImage: investorMale
   },
   {
     id: "3",
@@ -73,7 +79,8 @@ const investorData = [
     description: "Corporate venture capital arm focused on sustainable technologies and environmental innovations.",
     recentInvestments: ["Solar efficiency breakthrough", "Carbon capture technology", "Sustainable packaging"],
     expertise: "Sustainability metrics, market adoption",
-    networkValue: "High"
+    networkValue: "High",
+    profileImage: investorFemale
   },
   {
     id: "4",
@@ -91,7 +98,8 @@ const investorData = [
     description: "Family office with strong focus on enterprise technology patents and cybersecurity innovations.",
     recentInvestments: ["CyberShield acquisition", "FinTech patent portfolio", "Enterprise AI licensing"],
     expertise: "Enterprise sales, cybersecurity",
-    networkValue: "Medium"
+    networkValue: "Medium",
+    profileImage: investorMale
   }
 ];
 
@@ -282,6 +290,7 @@ export function InvestorNetworkInterface() {
                   <CardContent className="p-6">
                     <div className="flex items-start gap-4">
                       <Avatar className="h-16 w-16">
+                        <img src={investor.profileImage} alt={investor.name} className="w-full h-full object-cover" />
                         <AvatarFallback>{investor.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
                       </Avatar>
                       
@@ -360,6 +369,7 @@ export function InvestorNetworkInterface() {
             <div className="p-4 space-y-4">
               <div className="text-center">
                 <Avatar className="h-20 w-20 mx-auto mb-3">
+                  <img src={selectedInvestor.profileImage} alt={selectedInvestor.name} className="w-full h-full object-cover" />
                   <AvatarFallback>{selectedInvestor.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
                 </Avatar>
                 <h4 className="font-semibold">{selectedInvestor.name}</h4>

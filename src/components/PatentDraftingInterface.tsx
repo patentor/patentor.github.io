@@ -23,8 +23,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
-// Using the uploaded USPTO template image
-const usptoTemplate = "/lovable-uploads/016de9c6-6c47-4343-94e6-20a5d6af0906.png";
+// Import assets
+import usptoBarcode from "@/assets/uspto-barcode.png";
 
 // Mock Data
 const SAMPLE_SUGGESTIONS = [
@@ -357,124 +357,152 @@ export function PatentDraftingInterface() {
           {/* Right: USPTO-Style Patent Preview */}
           <div className="bg-white border rounded-lg shadow-card overflow-hidden">
             {/* USPTO Header */}
-            <div className="border-b bg-gray-50 p-4">
+            <div className="border-b bg-gray-50 p-6">
               <div className="flex justify-between items-start">
-                <div className="text-xs text-black font-patent">
+                <div className="text-xs text-black font-patent flex-1">
                   <div className="text-center mb-4">
-                    <div className="text-lg font-bold">United States Patent Application Publication</div>
-                    <div className="text-sm mt-2">(19) United States</div>
-                    <div className="text-sm">(12) Patent Application Publication (10) Pub. No.: US 20240123456 A1</div>
-                    <div className="text-sm">(43) Pub. Date: Mar. 28, 2024</div>
+                    <div className="text-lg font-bold mb-1">United States Patent Application Publication</div>
+                    <div className="text-sm">(19) United States</div>
+                    <div className="text-sm">(12) Patent Application Publication</div>
+                    <div className="text-sm font-bold">(10) Pub. No.: US 2025{Math.floor(Math.random() * 900000) + 100000} A1</div>
+                    <div className="text-sm">(43) Pub. Date: {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</div>
                   </div>
-                  <div className="grid grid-cols-2 gap-8 text-xs">
-                    <div>
-                      <div>(71) Applicant: {patentData.assignee || "Applicant Name"}</div>
-                      <div className="mt-2">(72) Inventor: {patentData.inventors || "Inventor Name"}</div>
-                      <div className="mt-2">(21) Appl. No.: 18/123,456</div>
-                      <div>(22) Filed: Mar. 28, 2023</div>
+                  
+                  <div className="grid grid-cols-2 gap-6 text-xs">
+                    <div className="space-y-1">
+                      <div><strong>(71)</strong> Applicant: <span className="uppercase">{patentData.assignee || "TECH INNOVATIONS INC."}</span></div>
+                      <div className="ml-8 text-gray-600">San Francisco, CA (US)</div>
+                      <div className="mt-2"><strong>(72)</strong> Inventor: {patentData.inventors || "John A. Doe, Jane B. Smith"}</div>
+                      <div className="ml-8 text-gray-600">San Francisco, CA (US)</div>
+                      <div className="mt-2"><strong>(21)</strong> Appl. No.: 18/{Math.floor(Math.random() * 900000) + 100000}</div>
+                      <div><strong>(22)</strong> Filed: {new Date(Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</div>
                     </div>
-                    <div>
-                      <div>(51) Int. Cl.</div>
-                      <div className="ml-4">G06F 17/30 (2006.01)</div>
-                      <div className="mt-2">(52) U.S. Cl.</div>
-                      <div className="ml-4">CPC ........ G06F 17/30867 (2013.01)</div>
+                    <div className="space-y-1">
+                      <div><strong>(51)</strong> Int. Cl.</div>
+                      <div className="ml-4 text-gray-600">G06F 17/30 (2006.01)</div>
+                      <div className="ml-4 text-gray-600">H04L 29/08 (2006.01)</div>
+                      <div className="mt-2"><strong>(52)</strong> U.S. Cl.</div>
+                      <div className="ml-4 text-gray-600">CPC .... G06F 17/30867 (2013.01);</div>
+                      <div className="ml-4 text-gray-600">H04L 67/06 (2013.01)</div>
+                      <div className="mt-2"><strong>(57)</strong> ABSTRACT</div>
+                      <div className="mt-1 text-gray-700 text-justify leading-tight">
+                        {(patentData.abstract || "Systems and methods for...").substring(0, 120)}...
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div className="w-20 h-24 bg-black flex items-center justify-center text-white text-xs font-patent-mono border-2 border-black">
-                  ||||||||||
-                  <br />
-                  BARCODE
-                  <br />
-                  ||||||||||
+                
+                {/* Real USPTO Barcode */}
+                <div className="ml-4">
+                  <img 
+                    src={usptoBarcode} 
+                    alt="USPTO Barcode" 
+                    className="w-20 h-16 object-contain border border-black"
+                  />
                 </div>
               </div>
             </div>
 
-            {/* Patent Content */}
+            {/* Patent Content - Two Column Layout */}
             <div className="p-6 h-[600px] overflow-y-auto text-sm leading-normal font-patent">
-              <div className="space-y-6">
-                {/* Title */}
-                <div className="text-center border-b border-gray-300 pb-4">
-                  <div className="text-xs text-gray-600 mb-2">(54) TITLE OF INVENTION</div>
-                  <h1 className="text-base font-bold uppercase tracking-wide">
-                    {patentData.title || "PATENT TITLE TO BE PROVIDED"}
-                  </h1>
-                </div>
+              {/* Title */}
+              <div className="text-center border-b border-gray-300 pb-4 mb-6">
+                <div className="text-xs text-gray-600 mb-2">(54)</div>
+                <h1 className="text-base font-bold uppercase tracking-wide">
+                  {patentData.title || "ADAPTIVE CATHODE SINTERING SYSTEM"}
+                </h1>
+              </div>
 
-                {/* Abstract */}
-                <div>
-                  <div className="text-xs font-bold mb-2">(57) ABSTRACT</div>
-                  <div className="text-justify leading-relaxed text-xs">
-                    {patentData.abstract || "An abstract describing the invention will be provided here. The abstract should be concise and describe the nature and substance of the disclosure."}
-                  </div>
-                  <div className="text-right text-xs mt-2">
-                    {Math.floor(Math.random() * 10) + 15} Claims, {Math.floor(Math.random() * 5) + 3} Drawing Sheets
-                  </div>
-                </div>
-
-                <hr className="border-gray-400" />
-
+              {/* Two Column Layout */}
+              <div className="columns-2 gap-6 text-xs leading-relaxed">
                 {/* Background */}
-                <div>
-                  <div className="text-xs font-bold mb-2">BACKGROUND OF THE INVENTION</div>
-                  <div className="text-xs text-justify leading-relaxed">
+                <div className="mb-4 break-inside-avoid">
+                  <div className="font-bold mb-1">BACKGROUND OF THE INVENTION</div>
+                  <div className="text-justify">
                     <div className="font-bold">[0001]</div>
-                    <div className="ml-6">
-                      {patentData.background || "This section describes the background and prior art related to the invention. It provides context for understanding the technical field and the problems addressed by the invention."}
+                    <div className="ml-4 mb-2">
+                      {patentData.background || "Field of the Invention. The present invention relates to battery manufacturing systems, and more particularly to adaptive cathode sintering systems that optimize thermal processing through real-time impedance monitoring and feedback control mechanisms."}
+                    </div>
+                    <div className="font-bold">[0002]</div>
+                    <div className="ml-4">
+                      Description of Related Art. Conventional cathode fabrication relies on fixed thermal schedules that ignore microstructure drift, which reduces cycle life and increases manufacturing costs. Prior art systems fail to account for real-time variations in material properties during the sintering process.
                     </div>
                   </div>
                 </div>
 
                 {/* Summary */}
-                <div>
-                  <div className="text-xs font-bold mb-2">SUMMARY OF THE INVENTION</div>
-                  <div className="text-xs text-justify leading-relaxed">
-                    <div className="font-bold">[0002]</div>
-                    <div className="ml-6">
-                      {patentData.summary || "This section provides a summary of the invention, including its main aspects and advantages over the prior art."}
+                <div className="mb-4 break-inside-avoid">
+                  <div className="font-bold mb-1">SUMMARY OF THE INVENTION</div>
+                  <div className="text-justify">
+                    <div className="font-bold">[0003]</div>
+                    <div className="ml-4">
+                      {patentData.summary || "The present invention provides systems and methods for optimizing battery cathode microstructure via agentic feedback using in-situ impedance monitoring during thermal processing. The system measures impedance continuously, updates thermal schedules adaptively, and records optimized parameters for repeatable manufacturing processes."}
                     </div>
+                  </div>
+                </div>
+
+                {/* Figures Placeholder */}
+                <div className="mb-4 break-inside-avoid">
+                  <div className="border-2 border-dashed border-gray-300 p-4 text-center bg-gray-50">
+                    <div className="text-xs font-bold mb-2">FIG. 1</div>
+                    <div className="text-xs text-gray-600">System Architecture Diagram</div>
+                    <div className="text-xs text-gray-500 mt-1">[Patent Figure Placeholder]</div>
                   </div>
                 </div>
 
                 {/* Brief Description of Drawings */}
-                <div>
-                  <div className="text-xs font-bold mb-2">BRIEF DESCRIPTION OF THE DRAWINGS</div>
-                  <div className="text-xs text-justify leading-relaxed">
-                    <div className="font-bold">[0003]</div>
-                    <div className="ml-6">
-                      FIG. 1 is a block diagram illustrating the overall system architecture.
-                    </div>
+                <div className="mb-4 break-inside-avoid">
+                  <div className="font-bold mb-1">BRIEF DESCRIPTION OF THE DRAWINGS</div>
+                  <div className="text-justify">
                     <div className="font-bold">[0004]</div>
-                    <div className="ml-6">
-                      FIG. 2 shows a flowchart of the main process.
+                    <div className="ml-4 mb-1">
+                      FIG. 1 is a block diagram illustrating the overall system architecture with impedance sensors and thermal control loops.
+                    </div>
+                    <div className="font-bold">[0005]</div>
+                    <div className="ml-4 mb-1">
+                      FIG. 2 shows a flowchart of the adaptive sintering process with feedback mechanisms.
+                    </div>
+                    <div className="font-bold">[0006]</div>
+                    <div className="ml-4">
+                      FIG. 3 depicts the impedance measurement system and sensor placement configuration.
                     </div>
                   </div>
                 </div>
 
+                {/* Another Figure Placeholder */}
+                <div className="mb-4 break-inside-avoid">
+                  <div className="border-2 border-dashed border-gray-300 p-4 text-center bg-gray-50">
+                    <div className="text-xs font-bold mb-2">FIG. 2</div>
+                    <div className="text-xs text-gray-600">Process Flow Diagram</div>
+                    <div className="text-xs text-gray-500 mt-1">[Patent Figure Placeholder]</div>
+                  </div>
+                </div>
+
                 {/* Detailed Description */}
-                <div>
-                  <div className="text-xs font-bold mb-2">DETAILED DESCRIPTION OF THE INVENTION</div>
-                  <div className="text-xs text-justify leading-relaxed">
-                    <div className="font-bold">[0005]</div>
-                    <div className="ml-6">
-                      {patentData.detailedDescription || "The detailed description provides a comprehensive explanation of the invention, including specific embodiments and implementation details."}
+                <div className="mb-4 break-inside-avoid">
+                  <div className="font-bold mb-1">DETAILED DESCRIPTION OF THE INVENTION</div>
+                  <div className="text-justify">
+                    <div className="font-bold">[0007]</div>
+                    <div className="ml-4 mb-2">
+                      {patentData.detailedDescription || "The invention comprises a sintering system with real-time impedance monitoring capabilities. The system includes impedance sensors positioned at strategic locations within the sintering chamber, thermal control elements capable of rapid temperature adjustment, and a processing unit configured to analyze impedance data and generate adaptive thermal profiles."}
+                    </div>
+                    <div className="font-bold">[0008]</div>
+                    <div className="ml-4">
+                      The processing unit utilizes machine learning algorithms to correlate impedance measurements with optimal sintering parameters, enabling continuous refinement of the thermal profile throughout the sintering cycle. This approach results in improved cathode uniformity and enhanced battery performance characteristics.
                     </div>
                   </div>
                 </div>
 
                 {/* Claims */}
-                <div>
-                  <div className="text-xs font-bold mb-2">CLAIMS</div>
-                  <div className="text-xs leading-relaxed">
-                    <div className="mb-2">
-                      What is claimed is:
-                    </div>
+                <div className="break-inside-avoid">
+                  <div className="font-bold mb-1">CLAIMS</div>
+                  <div className="text-justify">
+                    <div className="mb-2 font-medium">What is claimed is:</div>
                     {patentData.claims.map((claim, i) => (
-                      <div key={i} className="mb-4">
+                      <div key={i} className="mb-3">
                         <span className="font-bold">{i + 1}. </span>
-                        <span className="text-justify">
-                          {claim || `Claim ${i + 1} describing a specific aspect of the invention with precise technical language and proper claim formatting.`}
+                        <span>
+                          {claim || `A method comprising: measuring impedance in real time during cathode sintering; adjusting sintering temperature based on measured impedance values; recording optimized parameters; and producing a cathode with improved cycle life characteristics.`}
                         </span>
                       </div>
                     ))}

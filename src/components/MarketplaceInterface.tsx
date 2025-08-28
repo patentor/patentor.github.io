@@ -19,8 +19,8 @@ import {
   Star
 } from "lucide-react";
 
-// Using the uploaded USPTO template image
-const usptoTemplate = "/lovable-uploads/016de9c6-6c47-4343-94e6-20a5d6af0906.png";
+// Import assets
+import patentApproved from "@/assets/patent-approved.jpg";
 
 const marketplaceData = [
   {
@@ -41,7 +41,7 @@ const marketplaceData = [
     exclusions: ["Competitors in same market"],
     revenue: 850000,
     status: "available",
-    image: usptoTemplate
+    image: patentApproved
   },
   {
     id: "2", 
@@ -60,7 +60,8 @@ const marketplaceData = [
     license: "Non-exclusive",
     exclusions: [],
     revenue: 2100000,
-    status: "available"
+    status: "available",
+    image: patentApproved
   },
   {
     id: "3",
@@ -79,7 +80,8 @@ const marketplaceData = [
     license: "Exclusive",
     exclusions: ["Direct competitors"],
     revenue: 0,
-    status: "auction"
+    status: "auction",
+    image: patentApproved
   },
   {
     id: "4",
@@ -98,7 +100,8 @@ const marketplaceData = [
     license: "Exclusive",
     exclusions: ["Medical device manufacturers"],
     revenue: 1200000,
-    status: "featured"
+    status: "featured",
+    image: patentApproved
   }
 ];
 
@@ -221,7 +224,14 @@ export function MarketplaceInterface() {
                   onClick={() => setSelectedPatent(patent)}
                 >
                   <CardContent className="p-6">
-                    <div className="flex items-start justify-between mb-3">
+                    <div className="flex items-start gap-4 mb-3">
+                      <div className="w-20 h-16 rounded-lg overflow-hidden border bg-muted/30 flex-shrink-0">
+                        <img 
+                          src={patent.image} 
+                          alt={`${patent.title} patent`}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-2">
                           <h3 className="font-semibold text-lg">{patent.title}</h3>

@@ -18,6 +18,10 @@ import {
   Filter
 } from "lucide-react";
 
+// Import attorney photos
+import attorneyFemale from "@/assets/attorney-female.jpg";
+import attorneyMale from "@/assets/attorney-male.jpg";
+
 const attorneyData = [
   {
     id: "1",
@@ -29,7 +33,7 @@ const attorneyData = [
     rating: 4.9,
     reviews: 127,
     hourlyRate: 750,
-    profileImage: "/placeholder.svg",
+    profileImage: attorneyFemale,
     education: "Stanford Law School, Ph.D Computer Science",
     barAdmissions: ["California", "USPTO"],
     languages: ["English", "Mandarin"],
@@ -46,7 +50,7 @@ const attorneyData = [
     rating: 4.8,
     reviews: 89,
     hourlyRate: 650,
-    profileImage: "/placeholder.svg",
+    profileImage: attorneyMale,
     education: "University of Michigan Law, BS Mechanical Engineering",
     barAdmissions: ["Michigan", "USPTO", "Ohio"],
     languages: ["English", "Spanish"],
@@ -63,7 +67,7 @@ const attorneyData = [
     rating: 4.9,
     reviews: 156,
     hourlyRate: 825,
-    profileImage: "/placeholder.svg",
+    profileImage: attorneyFemale,
     education: "Harvard Law School, Ph.D Biochemistry",
     barAdmissions: ["Massachusetts", "USPTO", "New York"],
     languages: ["English", "French", "Portuguese"],
@@ -80,7 +84,7 @@ const attorneyData = [
     rating: 4.7,
     reviews: 73,
     hourlyRate: 550,
-    profileImage: "/placeholder.svg",
+    profileImage: attorneyMale,
     education: "UT Austin School of Law, BS Electrical Engineering",
     barAdmissions: ["Texas", "USPTO"],
     languages: ["English", "Korean"],
