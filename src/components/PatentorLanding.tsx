@@ -1,71 +1,55 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { 
-  ArrowRight, 
-  FileText, 
-  Search, 
-  Users, 
-  ShoppingCart, 
-  TrendingUp,
-  Briefcase,
-  Shield,
-  Brain,
-  CheckCircle,
-  Star
-} from "lucide-react";
+import { ArrowRight, FileText, Search, Users, ShoppingCart, TrendingUp, Briefcase, Shield, Brain, CheckCircle, Star } from "lucide-react";
 import heroImage from "@/assets/hero-patent.jpg";
 import { Link } from "react-router-dom";
-
 export function PatentorLanding() {
-  const features = [
-    {
-      icon: Brain,
-      title: "AI-Powered Patent Drafting",
-      description: "Advanced AI assists with patent structure, claims writing, and language optimization",
-      color: "text-primary"
-    },
-    {
-      icon: Search,
-      title: "Deep Research & Prior Art",
-      description: "Comprehensive patent database search and academic research capabilities",
-      color: "text-accent"
-    },
-    {
-      icon: Users,
-      title: "Attorney Directory",
-      description: "Connect with registered IP attorneys for professional patent prosecution",
-      color: "text-success"
-    },
-    {
-      icon: ShoppingCart,
-      title: "Patent Marketplace", 
-      description: "Buy and sell patents directly with integrated valuation tools",
-      color: "text-destructive"
-    },
-    {
-      icon: Briefcase,
-      title: "Commercialization Services",
-      description: "Manufacturing, distribution, and investor connection services",
-      color: "text-primary"
-    },
-    {
-      icon: TrendingUp,
-      title: "Investor Network",
-      description: "Access to investors interested in patent licensing and acquisition",
-      color: "text-accent"
-    }
-  ];
-
-  const stats = [
-    { number: "3.3M", label: "Active US Patents" },
-    { number: "17M", label: "Patents Worldwide" },
-    { number: "USPTO", label: "Official Database" },
-    { number: "WIPO", label: "Global Registry" }
-  ];
-
-  return (
-    <div className="min-h-screen bg-background">
+  const features = [{
+    icon: Brain,
+    title: "AI-Powered Patent Drafting",
+    description: "Advanced AI assists with patent structure, claims writing, and language optimization",
+    color: "text-primary"
+  }, {
+    icon: Search,
+    title: "Deep Research & Prior Art",
+    description: "Comprehensive patent database search and academic research capabilities",
+    color: "text-accent"
+  }, {
+    icon: Users,
+    title: "Attorney Directory",
+    description: "Connect with registered IP attorneys for professional patent prosecution",
+    color: "text-success"
+  }, {
+    icon: ShoppingCart,
+    title: "Patent Marketplace",
+    description: "Buy and sell patents directly with integrated valuation tools",
+    color: "text-destructive"
+  }, {
+    icon: Briefcase,
+    title: "Commercialization Services",
+    description: "Manufacturing, distribution, and investor connection services",
+    color: "text-primary"
+  }, {
+    icon: TrendingUp,
+    title: "Investor Network",
+    description: "Access to investors interested in patent licensing and acquisition",
+    color: "text-accent"
+  }];
+  const stats = [{
+    number: "3.3M",
+    label: "Active US Patents"
+  }, {
+    number: "17M",
+    label: "Patents Worldwide"
+  }, {
+    number: "USPTO",
+    label: "Official Database"
+  }, {
+    number: "WIPO",
+    label: "Global Registry"
+  }];
+  return <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-6 py-4">
@@ -95,16 +79,13 @@ export function PatentorLanding() {
 
       {/* Hero Section */}
       <section className="relative overflow-hidden">
-        <div 
-          className="absolute inset-0 bg-cover bg-center opacity-10"
-          style={{ backgroundImage: `url(${heroImage})` }}
-        />
+        <div className="absolute inset-0 bg-cover bg-center opacity-10" style={{
+        backgroundImage: `url(${heroImage})`
+      }} />
         <div className="relative container mx-auto px-6 py-20">
           <div className="max-w-4xl mx-auto text-center space-y-8">
             <div className="space-y-4 animate-fade-in">
-              <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-foreground">
-                AI Patent Research & Drafting
-              </h1>
+              <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-foreground">AI Patent Research & Drafting Tool</h1>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
                 Draft, analyze, and refine patents side by side with an AI research companion. 
                 From research to commercialization — all in one pipeline.
@@ -128,12 +109,10 @@ export function PatentorLanding() {
 
             {/* Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-16">
-              {stats.map((stat, index) => (
-                <div key={index} className="text-center animate-slide-up">
+              {stats.map((stat, index) => <div key={index} className="text-center animate-slide-up">
                   <div className="text-3xl font-bold text-primary">{stat.number}</div>
                   <div className="text-sm text-muted-foreground">{stat.label}</div>
-                </div>
-              ))}
+                </div>)}
             </div>
           </div>
         </div>
@@ -151,8 +130,7 @@ export function PatentorLanding() {
 
           <div className="max-w-4xl mx-auto">
             <div className="grid md:grid-cols-2 gap-6">
-              {features.map((feature, index) => (
-                <div key={index} className="flex items-start gap-4 p-4 bg-card rounded-lg border">
+              {features.map((feature, index) => <div key={index} className="flex items-start gap-4 p-4 bg-card rounded-lg border">
                   <div className="flex-shrink-0 w-8 h-8 rounded-full bg-success flex items-center justify-center">
                     <CheckCircle className="h-5 w-5 text-white" />
                   </div>
@@ -163,8 +141,7 @@ export function PatentorLanding() {
                       <p className="text-sm text-muted-foreground">{feature.description}</p>
                     </div>
                   </div>
-                </div>
-              ))}
+                </div>)}
             </div>
           </div>
         </div>
@@ -244,6 +221,5 @@ export function PatentorLanding() {
           </div>
         </div>
       </footer>
-    </div>
-  );
+    </div>;
 }
