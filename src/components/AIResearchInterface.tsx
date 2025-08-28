@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Search, Bot, FileText, ExternalLink, Calendar, Users, Building2, Brain } from "lucide-react";
+import { Search, Bot, FileText, ExternalLink, Calendar, Users, Building2, Sparkles } from "lucide-react";
 
 const samplePatents = [
   {
@@ -74,7 +74,7 @@ export function AIResearchInterface() {
                 Export Report
               </Button>
               <Button variant="default" size="sm" className="bg-gradient-primary">
-                <Brain className="mr-2 h-4 w-4" />
+                <Sparkles className="mr-2 h-4 w-4" />
                 AI Analysis
               </Button>
             </div>
