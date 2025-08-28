@@ -359,72 +359,122 @@ export function PatentDraftingInterface() {
             {/* USPTO Header */}
             <div className="border-b bg-gray-50 p-4">
               <div className="flex justify-between items-start">
-                <div className="text-xs text-gray-600">
-                  <div className="font-mono">US 20240123456 A1</div>
-                  <div className="mt-1">United States Patent Application Publication</div>
-                  <div className="mt-1">Pub. No.: US 20240123456 A1</div>
-                  <div>Pub. Date: Mar 28, 2024</div>
+                <div className="text-xs text-black font-patent">
+                  <div className="text-center mb-4">
+                    <div className="text-lg font-bold">United States Patent Application Publication</div>
+                    <div className="text-sm mt-2">(19) United States</div>
+                    <div className="text-sm">(12) Patent Application Publication (10) Pub. No.: US 20240123456 A1</div>
+                    <div className="text-sm">(43) Pub. Date: Mar. 28, 2024</div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-8 text-xs">
+                    <div>
+                      <div>(71) Applicant: {patentData.assignee || "Applicant Name"}</div>
+                      <div className="mt-2">(72) Inventor: {patentData.inventors || "Inventor Name"}</div>
+                      <div className="mt-2">(21) Appl. No.: 18/123,456</div>
+                      <div>(22) Filed: Mar. 28, 2023</div>
+                    </div>
+                    <div>
+                      <div>(51) Int. Cl.</div>
+                      <div className="ml-4">G06F 17/30 (2006.01)</div>
+                      <div className="mt-2">(52) U.S. Cl.</div>
+                      <div className="ml-4">CPC ........ G06F 17/30867 (2013.01)</div>
+                    </div>
+                  </div>
                 </div>
-                <div className="w-24 h-16 bg-gray-200 flex items-center justify-center text-xs text-gray-500 border">
+                <div className="w-20 h-24 bg-black flex items-center justify-center text-white text-xs font-patent-mono border-2 border-black">
+                  ||||||||||
+                  <br />
                   BARCODE
+                  <br />
+                  ||||||||||
                 </div>
               </div>
             </div>
 
             {/* Patent Content */}
-            <div className="p-6 h-[600px] overflow-y-auto text-sm leading-relaxed font-serif">
+            <div className="p-6 h-[600px] overflow-y-auto text-sm leading-normal font-patent">
               <div className="space-y-6">
                 {/* Title */}
-                <div className="text-center">
-                  <h1 className="text-lg font-bold uppercase tracking-wide">
-                    {patentData.title || "(Patent Title)"}
+                <div className="text-center border-b border-gray-300 pb-4">
+                  <div className="text-xs text-gray-600 mb-2">(54) TITLE OF INVENTION</div>
+                  <h1 className="text-base font-bold uppercase tracking-wide">
+                    {patentData.title || "PATENT TITLE TO BE PROVIDED"}
                   </h1>
-                </div>
-
-                {/* Inventor Information */}
-                <div className="space-y-2">
-                  <div className="font-semibold">(75) Inventors:</div>
-                  <div className="pl-4">{patentData.inventors}</div>
-                  
-                  <div className="font-semibold">(73) Assignee:</div>
-                  <div className="pl-4">{patentData.assignee}</div>
                 </div>
 
                 {/* Abstract */}
                 <div>
-                  <div className="font-semibold">ABSTRACT</div>
-                  <div className="mt-2 text-justify">
-                    {patentData.abstract || "(Abstract to be provided)"}
+                  <div className="text-xs font-bold mb-2">(57) ABSTRACT</div>
+                  <div className="text-justify leading-relaxed text-xs">
+                    {patentData.abstract || "An abstract describing the invention will be provided here. The abstract should be concise and describe the nature and substance of the disclosure."}
+                  </div>
+                  <div className="text-right text-xs mt-2">
+                    {Math.floor(Math.random() * 10) + 15} Claims, {Math.floor(Math.random() * 5) + 3} Drawing Sheets
                   </div>
                 </div>
 
+                <hr className="border-gray-400" />
+
                 {/* Background */}
                 <div>
-                  <div className="font-semibold">BACKGROUND OF THE INVENTION</div>
-                  <div className="mt-2 text-justify">
-                    <div className="font-semibold">[0001]</div>
-                    {patentData.background || "(Background to be provided)"}
+                  <div className="text-xs font-bold mb-2">BACKGROUND OF THE INVENTION</div>
+                  <div className="text-xs text-justify leading-relaxed">
+                    <div className="font-bold">[0001]</div>
+                    <div className="ml-6">
+                      {patentData.background || "This section describes the background and prior art related to the invention. It provides context for understanding the technical field and the problems addressed by the invention."}
+                    </div>
                   </div>
                 </div>
 
                 {/* Summary */}
                 <div>
-                  <div className="font-semibold">SUMMARY OF THE INVENTION</div>
-                  <div className="mt-2 text-justify">
-                    <div className="font-semibold">[0002]</div>
-                    {patentData.summary || "(Summary to be provided)"}
+                  <div className="text-xs font-bold mb-2">SUMMARY OF THE INVENTION</div>
+                  <div className="text-xs text-justify leading-relaxed">
+                    <div className="font-bold">[0002]</div>
+                    <div className="ml-6">
+                      {patentData.summary || "This section provides a summary of the invention, including its main aspects and advantages over the prior art."}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Brief Description of Drawings */}
+                <div>
+                  <div className="text-xs font-bold mb-2">BRIEF DESCRIPTION OF THE DRAWINGS</div>
+                  <div className="text-xs text-justify leading-relaxed">
+                    <div className="font-bold">[0003]</div>
+                    <div className="ml-6">
+                      FIG. 1 is a block diagram illustrating the overall system architecture.
+                    </div>
+                    <div className="font-bold">[0004]</div>
+                    <div className="ml-6">
+                      FIG. 2 shows a flowchart of the main process.
+                    </div>
+                  </div>
+                </div>
+
+                {/* Detailed Description */}
+                <div>
+                  <div className="text-xs font-bold mb-2">DETAILED DESCRIPTION OF THE INVENTION</div>
+                  <div className="text-xs text-justify leading-relaxed">
+                    <div className="font-bold">[0005]</div>
+                    <div className="ml-6">
+                      {patentData.detailedDescription || "The detailed description provides a comprehensive explanation of the invention, including specific embodiments and implementation details."}
+                    </div>
                   </div>
                 </div>
 
                 {/* Claims */}
                 <div>
-                  <div className="font-semibold">CLAIMS</div>
-                  <div className="mt-2">
+                  <div className="text-xs font-bold mb-2">CLAIMS</div>
+                  <div className="text-xs leading-relaxed">
+                    <div className="mb-2">
+                      What is claimed is:
+                    </div>
                     {patentData.claims.map((claim, i) => (
-                      <div key={i} className="mb-3">
-                        <span className="font-semibold">{i + 1}. </span>
+                      <div key={i} className="mb-4">
+                        <span className="font-bold">{i + 1}. </span>
                         <span className="text-justify">
-                          {claim || "(Claim to be provided)"}
+                          {claim || `Claim ${i + 1} describing a specific aspect of the invention with precise technical language and proper claim formatting.`}
                         </span>
                       </div>
                     ))}
