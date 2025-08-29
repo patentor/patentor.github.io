@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 
 // Import patent image
-import patentApproved from "@/assets/patent-approved.jpg";
+const patentImage = "/lovable-uploads/86590c2f-993c-4f15-bca9-fff86c2b3ca0.png";
 
 const commercializationProjects = [
   {
@@ -217,11 +217,11 @@ export function CommercializationInterface() {
                       <CardContent className="p-6">
                         <div className="flex items-start gap-4 mb-4">
                           <div className="w-16 h-12 rounded-lg overflow-hidden border bg-muted/30 flex-shrink-0">
-                            <img 
-                              src={patentApproved} 
-                              alt={`${project.patentTitle} patent`}
-                              className="w-full h-full object-cover"
-                            />
+                             <img 
+                               src={patentImage} 
+                               alt={`${project.patentTitle} patent`}
+                               className="w-full h-full object-cover"
+                             />
                           </div>
                           
                           <div className="flex-1">
