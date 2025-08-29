@@ -20,7 +20,7 @@ import {
 } from "lucide-react";
 
 // Import assets
-import patentApproved from "@/assets/patent-approved.jpg";
+const patentImage = "/lovable-uploads/86590c2f-993c-4f15-bca9-fff86c2b3ca0.png";
 
 const marketplaceData = [
   {
@@ -41,7 +41,7 @@ const marketplaceData = [
     exclusions: ["Competitors in same market"],
     revenue: 850000,
     status: "available",
-    image: patentApproved
+    image: patentImage
   },
   {
     id: "2", 
@@ -61,7 +61,7 @@ const marketplaceData = [
     exclusions: [],
     revenue: 2100000,
     status: "available",
-    image: patentApproved
+    image: patentImage
   },
   {
     id: "3",
@@ -81,7 +81,7 @@ const marketplaceData = [
     exclusions: ["Direct competitors"],
     revenue: 0,
     status: "auction",
-    image: patentApproved
+    image: patentImage
   },
   {
     id: "4",
@@ -101,7 +101,7 @@ const marketplaceData = [
     exclusions: ["Medical device manufacturers"],
     revenue: 1200000,
     status: "featured",
-    image: patentApproved
+    image: patentImage
   }
 ];
 
