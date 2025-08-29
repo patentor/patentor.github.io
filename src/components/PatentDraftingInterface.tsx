@@ -24,7 +24,7 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
 // Import assets
-import usptoBarcode from "@/assets/uspto-barcode.png";
+import usptoPatentBarcode from "@/assets/uspto-patent-barcode.png";
 
 // Mock Data
 const SAMPLE_SUGGESTIONS = [
@@ -357,47 +357,47 @@ export function PatentDraftingInterface() {
           {/* Right: USPTO-Style Patent Preview */}
           <div className="bg-white border rounded-lg shadow-card overflow-hidden">
             {/* USPTO Header */}
-            <div className="border-b bg-gray-50 p-6">
+            <div className="border-b bg-white p-4">
               <div className="flex justify-between items-start">
-                <div className="text-xs text-black font-patent flex-1">
-                  <div className="text-center mb-4">
-                    <div className="text-lg font-bold mb-1">United States Patent Application Publication</div>
-                    <div className="text-sm">(19) United States</div>
-                    <div className="text-sm">(12) Patent Application Publication</div>
-                    <div className="text-sm font-bold">(10) Pub. No.: US 2025{Math.floor(Math.random() * 900000) + 100000} A1</div>
-                    <div className="text-sm">(43) Pub. Date: {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</div>
+                <div className="text-xs text-black font-mono flex-1 pr-4">
+                  <div className="text-center mb-3">
+                    <div className="text-base font-bold mb-1">United States Patent Application Publication</div>
+                    <div className="text-xs mb-0.5">(19) United States</div>
+                    <div className="text-xs mb-0.5">(12) Patent Application Publication</div>
+                    <div className="text-xs font-bold mb-0.5">(10) Pub. No.: US 20250142735 A1</div>
+                    <div className="text-xs">(43) Pub. Date: Dec 28, 2025</div>
                   </div>
                   
-                  <div className="grid grid-cols-2 gap-6 text-xs">
-                    <div className="space-y-1">
+                  <div className="grid grid-cols-2 gap-4 text-xs">
+                    <div className="space-y-0.5">
                       <div><strong>(71)</strong> Applicant: <span className="uppercase">{patentData.assignee || "TECH INNOVATIONS INC."}</span></div>
-                      <div className="ml-8 text-gray-600">San Francisco, CA (US)</div>
-                      <div className="mt-2"><strong>(72)</strong> Inventor: {patentData.inventors || "John A. Doe, Jane B. Smith"}</div>
-                      <div className="ml-8 text-gray-600">San Francisco, CA (US)</div>
-                      <div className="mt-2"><strong>(21)</strong> Appl. No.: 18/{Math.floor(Math.random() * 900000) + 100000}</div>
-                      <div><strong>(22)</strong> Filed: {new Date(Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</div>
+                      <div className="ml-6 text-gray-700">San Francisco, CA (US)</div>
+                      <div className="mt-1"><strong>(72)</strong> Inventor: {patentData.inventors || "John A. Doe, Jane B. Smith"}</div>
+                      <div className="ml-6 text-gray-700">San Francisco, CA (US)</div>
+                      <div className="mt-1"><strong>(21)</strong> Appl. No.: 18/452,789</div>
+                      <div><strong>(22)</strong> Filed: Jun 24, 2024</div>
                     </div>
-                    <div className="space-y-1">
+                    <div className="space-y-0.5">
                       <div><strong>(51)</strong> Int. Cl.</div>
-                      <div className="ml-4 text-gray-600">G06F 17/30 (2006.01)</div>
-                      <div className="ml-4 text-gray-600">H04L 29/08 (2006.01)</div>
-                      <div className="mt-2"><strong>(52)</strong> U.S. Cl.</div>
-                      <div className="ml-4 text-gray-600">CPC .... G06F 17/30867 (2013.01);</div>
-                      <div className="ml-4 text-gray-600">H04L 67/06 (2013.01)</div>
-                      <div className="mt-2"><strong>(57)</strong> ABSTRACT</div>
-                      <div className="mt-1 text-gray-700 text-justify leading-tight">
-                        {(patentData.abstract || "Systems and methods for...").substring(0, 120)}...
+                      <div className="ml-3 text-gray-700">G06F 17/30 (2006.01)</div>
+                      <div className="ml-3 text-gray-700">H04L 29/08 (2006.01)</div>
+                      <div className="mt-1"><strong>(52)</strong> U.S. Cl.</div>
+                      <div className="ml-3 text-gray-700">CPC ...... G06F 17/30867 (2013.01);</div>
+                      <div className="ml-9 text-gray-700">H04L 67/06 (2013.01)</div>
+                      <div className="mt-1"><strong>(57)</strong> ABSTRACT</div>
+                      <div className="mt-0.5 text-gray-800 text-justify leading-tight text-xs">
+                        {(patentData.abstract || "Systems and methods for adaptive cathode sintering with real-time impedance monitoring and temperature profile optimization to enhance lithium-ion battery performance and cycle life").substring(0, 140)}...
                       </div>
                     </div>
                   </div>
                 </div>
                 
-                {/* Real USPTO Barcode */}
-                <div className="ml-4">
+                {/* Authentic USPTO Patent Barcode */}
+                <div className="flex-shrink-0">
                   <img 
-                    src={usptoBarcode} 
-                    alt="USPTO Barcode" 
-                    className="w-20 h-16 object-contain border border-black"
+                    src={usptoPatentBarcode} 
+                    alt="USPTO Patent Barcode" 
+                    className="w-12 h-20 object-contain"
                   />
                 </div>
               </div>
