@@ -54,13 +54,13 @@ export function PatentorLanding() {
       <header className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
+            <Link to="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
               <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
                 <span className="text-white font-bold text-lg">P</span>
               </div>
               <span className="font-bold text-2xl text-foreground">Patentor.ai</span>
               <Badge className="bg-primary text-white border-0">Beta</Badge>
-            </div>
+            </Link>
             
             <nav className="hidden md:flex items-center gap-6">
               <a href="#features" className="text-muted-foreground hover:text-foreground transition-colors">Features</a>
