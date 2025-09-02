@@ -23,8 +23,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
-// Import assets
-import usptoPatentBarcode from "@/assets/uspto-patent-barcode.png";
+// Barcode generator
+import JsBarcode from "jsbarcode";
 
 // Mock Data
 const SAMPLE_SUGGESTIONS = [
@@ -161,7 +161,30 @@ export function PatentDraftingInterface() {
   });
 
   const provisionalDeadline = "2025-12-31T23:59:59Z";
-  const { days, hours, minutes, seconds } = useCountdown(provisionalDeadline);
+const { days, hours, minutes, seconds } = useCountdown(provisionalDeadline);
+
+  // Stable patent identifiers (no random twitching)
+  const PATENT_NO = "US 10,987,654 B2";
+  const PATENT_NO_BARCODE = "US10987654B2";
+  const PATENT_DATE = "Jan. 15, 2025";
+
+  // Barcode ref and render
+  const barcodeRef = useRef<SVGSVGElement | null>(null);
+  useEffect(() => {
+    if (barcodeRef.current) {
+      try {
+        JsBarcode(barcodeRef.current, PATENT_NO_BARCODE, {
+          format: "CODE39",
+          displayValue: false,
+          width: 1,
+          height: 80,
+          margin: 0,
+        });
+      } catch (e) {
+        // ignore if barcode render fails
+      }
+    }
+  }, []);
 
   const addClaim = (text: string) => {
     setPatentData(prev => ({
@@ -358,48 +381,46 @@ export function PatentDraftingInterface() {
           <div className="bg-white border rounded-lg shadow-card overflow-hidden">
             {/* USPTO Header */}
             <div className="border-b bg-white p-4">
-              <div className="flex justify-between items-start">
-                <div className="text-xs text-black font-mono flex-1 pr-4">
-                  <div className="text-center mb-3">
-                    <div className="text-base font-bold mb-1">United States Patent Application Publication</div>
-                    <div className="text-xs mb-0.5">(19) United States</div>
-                    <div className="text-xs mb-0.5">(12) Patent Application Publication</div>
-                    <div className="text-xs font-bold mb-0.5">(10) Pub. No.: US 20250142735 A1</div>
-                    <div className="text-xs">(43) Pub. Date: Dec 28, 2025</div>
-                  </div>
-                  
-                  <div className="grid grid-cols-2 gap-4 text-xs">
-                    <div className="space-y-0.5">
-                      <div><strong>(71)</strong> Applicant: <span className="uppercase">{patentData.assignee || "TECH INNOVATIONS INC."}</span></div>
-                      <div className="ml-6 text-gray-700">San Francisco, CA (US)</div>
-                      <div className="mt-1"><strong>(72)</strong> Inventor: {patentData.inventors || "John A. Doe, Jane B. Smith"}</div>
-                      <div className="ml-6 text-gray-700">San Francisco, CA (US)</div>
-                      <div className="mt-1"><strong>(21)</strong> Appl. No.: 18/452,789</div>
-                      <div><strong>(22)</strong> Filed: Jun 24, 2024</div>
+              <div className="grid grid-cols-[1fr_auto] gap-4 items-start">
+                <div className="text-foreground font-patent">
+                  <div className="flex items-baseline justify-between">
+                    <div className="text-xs font-patent-mono space-y-0.5 leading-tight">
+                      <div>(19) United States</div>
+                      <div>(12) Patent</div>
                     </div>
-                    <div className="space-y-0.5">
-                      <div><strong>(51)</strong> Int. Cl.</div>
-                      <div className="ml-3 text-gray-700">G06F 17/30 (2006.01)</div>
-                      <div className="ml-3 text-gray-700">H04L 29/08 (2006.01)</div>
-                      <div className="mt-1"><strong>(52)</strong> U.S. Cl.</div>
-                      <div className="ml-3 text-gray-700">CPC ...... G06F 17/30867 (2013.01);</div>
-                      <div className="ml-9 text-gray-700">H04L 67/06 (2013.01)</div>
-                      <div className="mt-1"><strong>(57)</strong> ABSTRACT</div>
-                      <div className="mt-0.5 text-gray-800 text-justify leading-tight text-xs">
-                        {(patentData.abstract || "Systems and methods for adaptive cathode sintering with real-time impedance monitoring and temperature profile optimization to enhance lithium-ion battery performance and cycle life").substring(0, 140)}...
+                    <div className="text-base font-bold">United States Patent</div>
+                  </div>
+
+                  <div className="mt-3 grid grid-cols-2 gap-6 text-xs font-patent-mono">
+                    <div className="space-y-1">
+                      <div className="flex gap-2">
+                        <span className="font-bold">(54)</span>
+                        <span className="uppercase font-bold tracking-wide">{patentData.title || "ADAPTIVE CATHODE SINTERING SYSTEM"}</span>
+                      </div>
+                      <div className="flex gap-2">
+                        <span className="font-bold">(72)</span>
+                        <span>Inventors: {patentData.inventors || "John A. Doe; Jane B. Smith"}</span>
+                      </div>
+                      <div className="flex gap-2">
+                        <span className="font-bold">(73)</span>
+                        <span>Assignee: {patentData.assignee || "Tech Innovations Inc."}</span>
                       </div>
                     </div>
+                    <div className="space-y-1">
+                      <div><span className="font-bold">(21)</span> Appl. No.: 18/452,789</div>
+                      <div><span className="font-bold">(22)</span> Filed: Jun. 24, 2024</div>
+                    </div>
                   </div>
                 </div>
-                
-                {/* Authentic USPTO Patent Barcode */}
-                <div className="flex-shrink-0">
-                  <img 
-                    src={usptoPatentBarcode} 
-                    alt="USPTO Patent Barcode" 
-                    className="w-12 h-20 object-contain"
-                  />
-                </div>
+
+                <aside className="justify-self-end text-xs font-patent-mono text-foreground flex flex-col items-end">
+                  <div className="font-bold">(10) Patent No.: {PATENT_NO}</div>
+                  <div className="mt-0.5">(45) Date of Patent: {PATENT_DATE}</div>
+                  <div className="mt-2 bg-white p-1 border border-border">
+                    <svg ref={barcodeRef} className="block w-[112px] h-[80px]" />
+                  </div>
+                  <div className="mt-1">{PATENT_NO}</div>
+                </aside>
               </div>
             </div>
 
