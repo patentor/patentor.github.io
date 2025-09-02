@@ -56,15 +56,15 @@ export function PatentorLayout({ children }: PatentorLayoutProps) {
         <div className="container mx-auto px-6">
           {/* Top row */}
           <div className="flex items-center justify-between py-4">
-            <div className="flex items-center gap-2">
+            <NavLink to="/" className="flex items-center gap-2 group cursor-pointer" aria-label="Go to home">
               <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-sm">P</span>
               </div>
               <div>
-                <h1 className="font-bold text-xl text-foreground">Patentor.ai</h1>
+                <h1 className="font-bold text-xl text-foreground group-hover:text-foreground">Patentor.ai</h1>
                 <p className="text-xs text-muted-foreground">AI agentic tool for patent & academic deep research, drafting, and commercialization</p>
               </div>
-            </div>
+            </NavLink>
 
             <div className="flex items-center gap-4">
               <Button variant="ghost" size="icon">
