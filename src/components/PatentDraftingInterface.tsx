@@ -176,8 +176,8 @@ const { days, hours, minutes, seconds } = useCountdown(provisionalDeadline);
         JsBarcode(barcodeRef.current, PATENT_NO_BARCODE, {
           format: "CODE39",
           displayValue: false,
-          width: 1,
-          height: 80,
+          width: 2,
+          height: 60,
           margin: 0,
         });
       } catch (e) {
@@ -380,47 +380,52 @@ const { days, hours, minutes, seconds } = useCountdown(provisionalDeadline);
           {/* Right: USPTO-Style Patent Preview */}
           <div className="bg-white border rounded-lg shadow-card overflow-hidden">
             {/* USPTO Header */}
-            <div className="border-b bg-white p-4">
-              <div className="grid grid-cols-[1fr_auto] gap-4 items-start">
-                <div className="text-foreground font-patent">
-                  <div className="flex items-baseline justify-between">
-                    <div className="text-xs font-patent-mono space-y-0.5 leading-tight">
-                      <div>(19) United States</div>
-                      <div>(12) Patent</div>
-                    </div>
-                    <div className="text-base font-bold">United States Patent</div>
-                  </div>
+            <div className="border-b bg-white p-6 relative">
+              {/* Barcode - Top Right Corner */}
+              <div className="absolute top-4 right-4 text-center">
+                <div className="text-xs font-mono mb-1">(10) Patent No.: {PATENT_NO}</div>
+                <div className="text-xs font-mono mb-2">(45) Date of Patent: {PATENT_DATE}</div>
+                <div className="bg-white border border-gray-300 p-1">
+                  <svg ref={barcodeRef} className="block w-[140px] h-[60px]" />
+                </div>
+              </div>
 
-                  <div className="mt-3 grid grid-cols-2 gap-6 text-xs font-patent-mono">
-                    <div className="space-y-1">
-                      <div className="flex gap-2">
-                        <span className="font-bold">(54)</span>
-                        <span className="uppercase font-bold tracking-wide">{patentData.title || "ADAPTIVE CATHODE SINTERING SYSTEM"}</span>
-                      </div>
-                      <div className="flex gap-2">
-                        <span className="font-bold">(72)</span>
-                        <span>Inventors: {patentData.inventors || "John A. Doe; Jane B. Smith"}</span>
-                      </div>
-                      <div className="flex gap-2">
-                        <span className="font-bold">(73)</span>
-                        <span>Assignee: {patentData.assignee || "Tech Innovations Inc."}</span>
-                      </div>
-                    </div>
-                    <div className="space-y-1">
+              {/* Main Header Content - Centered */}
+              <div className="text-center max-w-2xl mx-auto pr-32">
+                <div className="text-lg font-bold mb-4">United States Patent</div>
+                <div className="text-xs font-mono mb-2">(19) United States</div>
+                <div className="text-xs font-mono mb-4">(12) Patent</div>
+                
+                {/* Patent Details - Clean Layout */}
+                <div className="space-y-3 text-left text-xs font-mono">
+                  <div className="grid grid-cols-[auto_1fr] gap-2 items-start">
+                    <span className="font-bold">(54)</span>
+                    <span className="uppercase font-bold tracking-wide">
+                      {patentData.title || "ADAPTIVE CATHODE SINTERING SYSTEM"}
+                    </span>
+                  </div>
+                  
+                  <div className="grid grid-cols-[auto_1fr] gap-2">
+                    <span className="font-bold">(72)</span>
+                    <span>Inventors: {patentData.inventors || "John A. Doe; Jane B. Smith"}</span>
+                  </div>
+                  
+                  <div className="grid grid-cols-[auto_1fr] gap-2">
+                    <span className="font-bold">(73)</span>
+                    <span>Assignee: {patentData.assignee || "Tech Innovations Inc."}</span>
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-4 mt-3">
+                    <div>
                       <div><span className="font-bold">(21)</span> Appl. No.: 18/452,789</div>
                       <div><span className="font-bold">(22)</span> Filed: Jun. 24, 2024</div>
                     </div>
+                    <div>
+                      <div><span className="font-bold">(51)</span> Int. Cl.: H01M 4/38</div>
+                      <div><span className="font-bold">(52)</span> U.S. Cl.: 429/231.95</div>
+                    </div>
                   </div>
                 </div>
-
-                <aside className="justify-self-end text-xs font-patent-mono text-foreground flex flex-col items-end">
-                  <div className="font-bold">(10) Patent No.: {PATENT_NO}</div>
-                  <div className="mt-0.5">(45) Date of Patent: {PATENT_DATE}</div>
-                  <div className="mt-2 bg-white p-1 border border-border">
-                    <svg ref={barcodeRef} className="block w-[112px] h-[80px]" />
-                  </div>
-                  <div className="mt-1">{PATENT_NO}</div>
-                </aside>
               </div>
             </div>
 
