@@ -163,17 +163,17 @@ export function PatentDraftingInterface() {
   const provisionalDeadline = "2025-12-31T23:59:59Z";
 const { days, hours, minutes, seconds } = useCountdown(provisionalDeadline);
 
-  // Stable patent identifiers (no random twitching)
-  const PATENT_NO = "US 10,987,654 B2";
-  const PATENT_NO_BARCODE = "US10987654B2";
-  const PATENT_DATE = "Jan. 15, 2025";
+  // Stable publication identifiers (no random twitching)
+  const PUB_NO = "US 2025/0142735 A1";
+  const PUB_BARCODE = "US20250142735A1";
+  const PUB_DATE = "Dec. 28, 2025";
 
   // Barcode ref and render
   const barcodeRef = useRef<SVGSVGElement | null>(null);
   useEffect(() => {
     if (barcodeRef.current) {
       try {
-        JsBarcode(barcodeRef.current, PATENT_NO_BARCODE, {
+        JsBarcode(barcodeRef.current, PUB_BARCODE, {
           format: "CODE39",
           displayValue: false,
           width: 2,
@@ -383,49 +383,18 @@ const { days, hours, minutes, seconds } = useCountdown(provisionalDeadline);
             <div className="border-b bg-white p-6 relative">
               {/* Barcode - Top Right Corner */}
               <div className="absolute top-4 right-4 text-center">
-                <div className="text-xs font-mono mb-1">(10) Patent No.: {PATENT_NO}</div>
-                <div className="text-xs font-mono mb-2">(45) Date of Patent: {PATENT_DATE}</div>
-                <div className="bg-white border border-gray-300 p-1">
-                  <svg ref={barcodeRef} className="block w-[140px] h-[60px]" />
+                <div className="text-xs font-mono mb-1">(10) Pub. No.: {PUB_NO}</div>
+                <div className="text-xs font-mono mb-2">(43) Pub. Date: {PUB_DATE}</div>
+                <div className="bg-white border border-border p-1">
+                  <svg ref={barcodeRef} className="block w-[200px] h-[60px]" />
                 </div>
               </div>
 
               {/* Main Header Content - Centered */}
-              <div className="text-center max-w-2xl mx-auto pr-32">
-                <div className="text-lg font-bold mb-4">United States Patent</div>
-                <div className="text-xs font-mono mb-2">(19) United States</div>
-                <div className="text-xs font-mono mb-4">(12) Patent</div>
-                
-                {/* Patent Details - Clean Layout */}
-                <div className="space-y-3 text-left text-xs font-mono">
-                  <div className="grid grid-cols-[auto_1fr] gap-2 items-start">
-                    <span className="font-bold">(54)</span>
-                    <span className="uppercase font-bold tracking-wide">
-                      {patentData.title || "ADAPTIVE CATHODE SINTERING SYSTEM"}
-                    </span>
-                  </div>
-                  
-                  <div className="grid grid-cols-[auto_1fr] gap-2">
-                    <span className="font-bold">(72)</span>
-                    <span>Inventors: {patentData.inventors || "John A. Doe; Jane B. Smith"}</span>
-                  </div>
-                  
-                  <div className="grid grid-cols-[auto_1fr] gap-2">
-                    <span className="font-bold">(73)</span>
-                    <span>Assignee: {patentData.assignee || "Tech Innovations Inc."}</span>
-                  </div>
-                  
-                  <div className="grid grid-cols-2 gap-4 mt-3">
-                    <div>
-                      <div><span className="font-bold">(21)</span> Appl. No.: 18/452,789</div>
-                      <div><span className="font-bold">(22)</span> Filed: Jun. 24, 2024</div>
-                    </div>
-                    <div>
-                      <div><span className="font-bold">(51)</span> Int. Cl.: H01M 4/38</div>
-                      <div><span className="font-bold">(52)</span> U.S. Cl.: 429/231.95</div>
-                    </div>
-                  </div>
-                </div>
+              <div className="text-center max-w-3xl mx-auto pr-[240px]">
+                <div className="text-base font-bold mb-2">United States Patent Application Publication</div>
+                <div className="text-xs font-mono">(19) United States</div>
+                <div className="text-xs font-mono">(12) Patent Application Publication</div>
               </div>
             </div>
 
