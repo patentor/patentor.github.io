@@ -151,8 +151,8 @@ export function PatentDraftingInterface() {
   const [currentMessage, setCurrentMessage] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [expandedSections, setExpandedSections] = useState({
-    title: true,
-    abstract: true,
+    title: false,
+    abstract: false,
     claims: true,
     background: false,
     summary: false,
