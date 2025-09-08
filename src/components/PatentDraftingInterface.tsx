@@ -546,9 +546,21 @@ const { days, hours, minutes, seconds } = useCountdown(provisionalDeadline);
                         />
                       )}
                       
-                      {['abstract', 'background', 'summary', 'briefDescription', 'detailedDescription'].includes(section) && (
+                      {section === 'abstract' && (
                         <Textarea
-                          className="min-h-[100px]"
+                          className="min-h-[60px]"
+                          value={patentData.abstract}
+                          onChange={(e) => setPatentData({
+                            ...patentData, 
+                            abstract: e.target.value
+                          })}
+                          placeholder="Enter abstract"
+                        />
+                      )}
+                      
+                      {['background', 'summary', 'briefDescription', 'detailedDescription'].includes(section) && (
+                        <Textarea
+                          className="min-h-[80px]"
                           value={patentData[section as keyof typeof patentData] as string}
                           onChange={(e) => setPatentData({
                             ...patentData, 
