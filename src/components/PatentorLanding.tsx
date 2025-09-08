@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowRight, FileText, Search, Users, ShoppingCart, TrendingUp, Briefcase, Shield, Brain, CheckCircle, Star } from "lucide-react";
 import heroImage from "@/assets/hero-patent.jpg";
 import { Link } from "react-router-dom";
+import { ProfileDropdown } from "@/components/ProfileDropdown";
 export function PatentorLanding() {
   const features = [{
     icon: Brain,
@@ -70,7 +71,7 @@ export function PatentorLanding() {
             </nav>
 
             <div className="flex items-center gap-3">
-              <Button variant="outline" onClick={() => alert('Sign in functionality coming soon')}>Sign In</Button>
+              <ProfileDropdown />
               <Button asChild className="bg-primary hover:bg-primary/90"><Link to="/drafting">Get Started</Link></Button>
             </div>
           </div>
