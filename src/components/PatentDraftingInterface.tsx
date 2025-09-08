@@ -511,9 +511,9 @@ const { days, hours, minutes, seconds } = useCountdown(provisionalDeadline);
         {/* Collapsible Patent Sections */}
         <div className="mt-6 space-y-4">
           <h2 className="text-lg font-semibold">Patent Sections</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 items-start">
             {Object.entries(expandedSections).map(([section, expanded]) => (
-              <div key={section} className="border rounded-lg">
+              <div key={section} className="border rounded-lg self-start">
                 <button
                   onClick={() => toggleSection(section as keyof typeof expandedSections)}
                   className="w-full flex justify-between items-center p-4 hover:bg-muted/50"
